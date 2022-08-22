@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+/*@import "../node_modules/bootstrap/dist/css/bootstrap.css";*/
+@import "~codemirror/lib/codemirror.css";
+@import "~codemirror/theme/zenburn.css";
+@import '~codemirror/addon/hint/show-hint.css';
+
+
+.padding20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.labelItemp {
+  font-size: 12px;
+  width: 80px;
+  margin-right:10px;
+}
