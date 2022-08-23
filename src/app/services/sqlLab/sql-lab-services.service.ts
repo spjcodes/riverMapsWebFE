@@ -10,11 +10,12 @@ export class SqlLabServicesService {
   constructor(private httpClient: HttpClient, private hostConfig: HostConfig) { }
 
   public executorSqlTask(sqlText: String): any {
+
     const p = {
       "sqlText": sqlText
     }
-    var objectObservable = this.httpClient.post(this.hostConfig.getUrl(), p).toPromise();
-    alert(objectObservable)
-    return objectObservable;
+    return this.httpClient.post("http://localhost:8080/sqlLab/executor", p).toPromise().then((result: any) => {
+      console.dir(result);
+    });
   }
 }

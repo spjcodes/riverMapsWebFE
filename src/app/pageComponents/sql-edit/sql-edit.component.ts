@@ -15,12 +15,15 @@ import {SqlLabServicesService} from "../../services/sqlLab/sql-lab-services.serv
 })
 export class SqlEditComponent implements OnInit {
 
+  code: any;
+  cmOptions: any;
+
   constructor(private sqlLabSer: SqlLabServicesService) {
 
   }
 
   ngOnInit(): void {
-    this.code = "enjoy you sql tour...";
+    this.code = "o_< enjoy you sql tour... ";
     this.cmOptions = {
      /* mode: "text/x-mysql",
       // 缩进格式
@@ -71,18 +74,13 @@ export class SqlEditComponent implements OnInit {
     });*/
   }
 
-  code: any;
-  cmOptions: any;
+
 
 
 
    executorSql(code: String) {
 
-     this.sqlLabSer.executorSqlTask(code).then((obj: any) => {
-      obj.forEach((e: any) => {
-        console.log(e);
-      });
-    });
+     this.sqlLabSer.executorSqlTask(code);
   }
 
   onFocus() {
