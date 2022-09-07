@@ -1,4 +1,4 @@
-import {SqlTaskConfig} from "./sql-task-config";
+import {SqlJobConfig} from "./sql-job-config";
 
 /**
  * author: jiayeli.cn
@@ -11,7 +11,7 @@ export class SqlJobModule {
   module: String = "";
   dataBase: String = "";
   table: String = "";
-  config: SqlTaskConfig = new SqlTaskConfig();
+  config: SqlJobConfig = new SqlJobConfig();
   sqlScripts: String = "";
   isOutputLog: boolean = true;
 
@@ -19,6 +19,6 @@ export class SqlJobModule {
   modules:Array<String> = ["standLone"];
   dataBases: Array<String> = ["default"];
   tables: Array<String> = ["default"];
-  configs: Map<String, SqlTaskConfig> = new Map<String, SqlTaskConfig>([["default", new SqlTaskConfig()]]);
+  configs: Map<String, SqlJobConfig> = new Map<String, SqlJobConfig>([["default", new SqlJobConfig()]]);
 
 }

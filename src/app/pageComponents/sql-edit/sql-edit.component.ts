@@ -19,13 +19,16 @@ export class SqlEditComponent implements OnInit {
   code: any;
   cmOptions: any;
   jobModule: SqlJobModule = new SqlJobModule();
+  jobConfigs: Array<String> = [];
 
   constructor(private sqlLabSer: SqlLabServicesService) {
 
   }
 
   ngOnInit(): void {
-
+    for (let key of this.jobModule.configs.keys()) {
+      this.jobConfigs.push(key);
+    }
     this.codeMirrorInit();
   }
 
@@ -106,5 +109,31 @@ export class SqlEditComponent implements OnInit {
 
   editConfigs() {
     alert("goto edit config templates");
+  }
+
+  isOutput(isOutputLog: boolean) {
+    this.jobModule.isOutputLog = !isOutputLog;
+  }
+
+  setCluster(event: Event) {
+    console.log(this.jobModule.configs.get((<HTMLSelectElement>event.target).value));
+    console.log((<HTMLSelectElement>event.target).value);
+  }
+
+  setModule(event: Event) {
+    console.log((<HTMLSelectElement>event.target).value);
+  }
+
+  setDatabaseName($event: Event) {
+    console.log((<HTMLSelectElement>$event.target).value);
+  }
+
+  setTableName($event: Event) {
+    console.log((<HTMLSelectElement>$event.target).value);
+  }
+
+  setJobConfig($event: Event) {
+    console.log((<HTMLSelectElement>$event.target).value);
+
   }
 }

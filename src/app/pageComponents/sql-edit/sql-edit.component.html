@@ -1,4 +1,4 @@
-<div class="card containerCustomer">
+<div class="card containerCustomer margin24">
   <h4 class="card-header">sqlLab</h4>
 
   <div class="card-body">
@@ -8,7 +8,7 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled">cluster:</label>
-          <select class="form-select" id="cluster" *ngFor="let c of this.jobModule.clusters">
+          <select class="form-select" id="cluster" (change)="setCluster($event)" *ngFor="let c of this.jobModule.clusters">
             <option selected>standAlong</option>
             <option value="{{c}}">{{c}}</option>
           </select>
@@ -18,7 +18,7 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled">module:</label>
-          <select class="form-select" id="module" *ngFor="let m of this.jobModule.modules">
+          <select class="form-select" id="module" (change)="setModule($event)" *ngFor="let m of this.jobModule.modules">
             <option selected>standAlong</option>
             <option value="{{m}}">{{m}}</option>
           </select>
@@ -28,7 +28,7 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled">dataBase</label>
-          <select class="form-select" id="inputGroupSelect" *ngFor="let d of this.jobModule.dataBases">
+          <select class="form-select" id="inputGroupSelect" (change)="setDatabaseName($event)" *ngFor="let d of this.jobModule.dataBases">
             <option selected>default</option>
             <option value="{{d}}">{{d}}</option>
           </select>
@@ -38,7 +38,7 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled" type="text">table:</label>
-          <select class="form-select" id="inputGroupSelect1" aria-label="flink job configs" *ngFor="let t of this.jobModule.tables">
+          <select class="form-select" id="inputGroupSelect1" aria-label="flink job configs" (change)="setTableName($event)" *ngFor="let t of this.jobModule.tables">
             <option selected>Choose...</option>
             <option value={{t}}>{{t}}</option>
           </select>
@@ -48,7 +48,7 @@
       <div class="col-sm-10 col-md-4  col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled" type="text">config</label>
-          <select class="form-select" id="inputGroupSelect2" aria-label="flink job configs" *ngFor="let c of this.jobModule.configs.keys()">
+          <select class="form-select" id="inputGroupSelect2" aria-label="flink job configs" (change)="setJobConfig($event)" *ngFor="let c of this.jobConfigs">
             <option value="default">default</option>
             <option type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                 edit...
@@ -96,15 +96,26 @@
                     (focus)="onFocus()" (blur)="onBlur()"">
         </codemirror>-->
 
-
     <codemirror [(ngModel)]="code" [config]="cmOptions" >
     </codemirror>
 
     <hr/>
 
+
+
     <a  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(code)">executor</a>
 
     <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
+
+    <hr/>
+
+    <div class="form-check form-switch">
+      <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
+    </div>
+
+    <codemirror [(ngModel)]="code" [config]="cmOptions" *ngIf="this.jobModule.isOutputLog">
+    </codemirror>
 
   </div>
 </div>
