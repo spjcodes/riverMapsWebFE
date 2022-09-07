@@ -9,13 +9,20 @@ export class SqlLabServicesService {
 
   constructor(private httpClient: HttpClient, private hostConfig: HostConfig) { }
 
+  private executorSqlJobURL = "sqlLab/executorSqlTask";
   public executorSqlTask(sqlText: String): any {
-
     const p = {
       "sqlText": sqlText
     }
-    return this.httpClient.post("http://localhost:8080/sqlLab/executor", p).toPromise().then((result: any) => {
-      console.dir(result);
-    });
+    console.dir(p)
+    return this.httpClient.post("http://localhost:8080/" + this.executorSqlJobURL, p).toPromise();
+  }
+
+  private getJobModlesURL = "";
+  getJobModules() {
+    const p = {
+
+    };
+    return this.httpClient.get(this.hostConfig.getBaseUrl() + this.getJobModlesURL).toPromise();
   }
 }

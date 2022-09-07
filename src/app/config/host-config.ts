@@ -3,8 +3,9 @@ export class HostConfig {
   private port: String = "8080"
   private baseUrl: String = "";
 
-  public getUrl() {
+  public getBaseUrl() {
     // return this.host + ":" + this.port;
     return this.host + ":" + this.port;
   }
+
 }
