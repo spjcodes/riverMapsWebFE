@@ -16,8 +16,9 @@ import {SqlJobModule} from "../../module/sql-job-module";
 })
 export class SqlEditComponent implements OnInit {
 
-  code: any;
   cmOptions: any;
+  logContent: any;
+  logOptions: any;
   jobModule: SqlJobModule = new SqlJobModule();
   jobConfigs: Array<String> = [];
 
@@ -41,7 +42,7 @@ export class SqlEditComponent implements OnInit {
   }
 
   private codeMirrorInit() {
-    this.code = "o_< enjoy you sql tour... ";
+    this.jobModule.sqlScript = "o_< enjoy you sql tour... ";
     this.cmOptions = {
       /* mode: "text/x-mysql",
        // 缩进格式
@@ -90,11 +91,24 @@ export class SqlEditComponent implements OnInit {
             CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
           }
         });*/
+
+    this.logContent = "";
+    this.logOptions = {
+      mode: 'XML/HTML',
+      smartIndent: true,
+      indentUnit: 4,
+      autoRefresh: true,
+      tabSize: 2,
+      indentWithTabs: true,
+      lineNumbers: true,
+      matchBrackets: true,	//括号匹配
+      styleActiveLine: true
+    };
   }
 
-  executorSql(code: String) {
+  executorSql(jobModule: SqlJobModule) {
 
-     this.sqlLabSer.executorSqlTask(code).then((result: any) => {
+     this.sqlLabSer.executorSqlTask(jobModule).then((result: any) => {
        console.dir(result);
      });
   }

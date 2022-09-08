@@ -8,11 +8,11 @@ import {SqlJobConfig} from "./sql-job-config";
 export class SqlJobModule {
 
   cluster: String = "default";
-  module: String = "";
+  jobType: String = "";
   dataBase: String = "";
   table: String = "";
   config: SqlJobConfig = new SqlJobConfig();
-  sqlScripts: String = "";
+  sqlScript: String = "";
   isOutputLog: boolean = true;
 
   clusters: Array<String> = ["default"];
@@ -20,5 +20,6 @@ export class SqlJobModule {
   dataBases: Array<String> = ["default"];
   tables: Array<String> = ["default"];
   configs: Map<String, SqlJobConfig> = new Map<String, SqlJobConfig>([["default", new SqlJobConfig()]]);
+  jobName: String = "";
 
 }

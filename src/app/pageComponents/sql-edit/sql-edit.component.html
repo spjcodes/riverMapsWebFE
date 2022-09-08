@@ -92,20 +92,21 @@
 
    <hr/>
 
-<!--    <codemirror [(ngModel)]="code"  [config]="cmOptions
-                    (focus)="onFocus()" (blur)="onBlur()"">
-        </codemirror>-->
-
-    <codemirror [(ngModel)]="code" [config]="cmOptions" >
+    <codemirror [(ngModel)]="this.jobModule.sqlScript" [config]="cmOptions" >
     </codemirror>
 
     <hr/>
 
+    <div class="">
+      <span class="btn btn-primary disabled" style="border-radius: 0 0 0 0;">task name:</span>
+      <input style="border:1px solid; border-left: 0; border-radius: 0 0 0 0;" type="text" class="btn " placeholder="task name" aria-label="taskName" [(ngModel)]="jobModule.jobName">
 
+      <button  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(this.jobModule)">executor</button>
 
-    <a  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(code)">executor</a>
+      <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
 
-    <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
+    </div>
+
 
     <hr/>
 
@@ -114,7 +115,7 @@
       <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
     </div>
 
-    <codemirror [(ngModel)]="code" [config]="cmOptions" *ngIf="this.jobModule.isOutputLog">
+    <codemirror [(ngModel)]="logContent" [config]="logOptions" *ngIf="this.jobModule.isOutputLog">
     </codemirror>
 
   </div>
