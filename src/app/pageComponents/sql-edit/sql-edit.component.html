@@ -109,6 +109,23 @@
 
     <hr/>
 
+    <div class="form-check form-switch">
+
+      <ul id="jobConfigSwitch">
+        <li >
+          <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
+        </li>
+<!--        <li  style="margin-left:60px;">
+          <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
+          <label class="form-check-label1" for="flexSwitchCheckDefault1">outputLog</label>
+        </li>-->
+      </ul>
+
+    </div>
+
+    <hr style="border: 1px dotted green"/>
+
     <div class="">
 
 
@@ -121,10 +138,7 @@
 
     <hr/>
 
-    <div class="form-check form-switch">
-      <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-      <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
-    </div>
+
 
     <codemirror [(ngModel)]="logContent" [config]="logOptions" *ngIf="this.jobModule.isOutputLog">
     </codemirror>

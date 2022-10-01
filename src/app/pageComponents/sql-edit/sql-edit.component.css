@@ -43,3 +43,8 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+#jobConfigSwitch li{
+  list-style: none;
+  float:left;
+}
