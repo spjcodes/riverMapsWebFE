@@ -6,16 +6,12 @@
     <div class="row padding20">
 
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
-<!--        <div class="input-group">
-          <label class="btn btn-primary disabled">task name:</label>
-          <input class="inputComponent" style="border:1px solid; border-left: 0; border-radius: 0 0 0 0;" type="text" placeholder="task name" aria-label="taskName" [(ngModel)]="jobModule.jobName">
-        </div>-->
+
         <div class="input-group mb-3">
           <span class="btn btn-primary disabled">task name:</span>
           <input type="text" placeholder="job name" class="form-control" id="basic-url" aria-describedby="job name" [(ngModel)]="sqlJobModule.jobName">
         </div>
       </div>
-
 
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
@@ -95,58 +91,75 @@
               <form>
 
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">jobManageCores:</label>
-                  <input type="text" class="form-control" id="tmmemory-name">
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">desc:</label>
-                  <input class="form-control" id="tmnumslots-text">
+                  <label for="recipient-name" class="col-form-label">configname:</label>
+                  <input name="configname" [(ngModel)]="this.jobConfig.configname" type="text" class="form-control" id="configname-name">
                 </div>
 
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">jobManageCores:</label>
-                  <input type="text" class="form-control" id="defaultparallel-name">
+                  <label for="recipient-name" class="col-form-label">tmmemory:</label>
+                  <input name="tmmemory" [(ngModel)]="this.jobConfig.tmmemory" type="text" class="form-control" id="tmmemory-name">
                 </div>
+
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">tmnumslots:</label>
+                  <input name="tmnumslots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmnumslots-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">defaultparallel:</label>
+                  <input name="defaultparallel" [(ngModel)]="this.jobConfig.defaultparallel" type="text" class="form-control" id="defaultparallel-name">
+                </div>
+
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">statebackend:</label>
-                  <input class="form-control" id="statebackend-text">
+                  <input  name="statebackend" [(ngModel)]="this.jobConfig.statebackend" class="form-control" id="statebackend-text">
                 </div>
 
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">ckdir:</label>
-                  <input type="text" class="form-control" id="ckdir-name">
+                  <input name="ckdir" [(ngModel)]="this.jobConfig.ckdir" type="text" class="form-control" id="ckdir-name">
                 </div>
+
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">desc:</label>
-                  <input class="form-control" id="ckinterval-text">
+                  <label for="message-text" class="col-form-label">ckinterval:</label>
+                  <input name="ckinterval" [(ngModel)]="this.jobConfig.ckinterval" class="form-control" id="ckinterval-text">
                 </div>
 
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">restartstrategy:</label>
-                  <input type="text" class="form-control" id="restartstrategy-name">
+                  <input name="restartstrategy" [(ngModel)]="this.jobConfig.restartstrategy" type="text" class="form-control" id="restartstrategy-name">
                 </div>
+
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">restartinterval:</label>
-                  <input class="form-control" id="restartinterval-text">
+                  <input name="restartinterval" [(ngModel)]="this.jobConfig.restartinterval" class="form-control" id="restartinterval-text">
                 </div>
 
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">failureinterval:</label>
-                  <input type="text" class="form-control" id="failureinterval-name">
+                  <input name="failureinterval" [(ngModel)]="this.jobConfig.failureinterval" type="text" class="form-control" id="failureinterval-name">
                 </div>
+
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">dalyinterval:</label>
-                  <input class="form-control" id="dalyinterval-text">
+                  <input name="dalyinterval" [(ngModel)]="this.jobConfig.dalyinterval" class="form-control" id="dalyinterval-text">
                 </div>
 
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">restartattempts:</label>
-                  <input type="text" class="form-control" id="restartattempts-name">
+                  <input name="restartattempts" [(ngModel)]="this.jobConfig.restartattempts" type="text" class="form-control" id="restartattempts-name">
                 </div>
+
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">failurerate:</label>
-                  <input class="form-control" id="failurerate-text">
+                  <input name="failurerate" [(ngModel)]="this.jobConfig.failurerate" class="form-control" id="failurerate-text">
                 </div>
+
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">desc:</label>
+                  <textarea name="tmnumslots"  [(ngModel)]="this.jobConfig.descr" class="form-control" id="descr-text"></textarea>
+                </div>
+
               </form>
             </div>
 

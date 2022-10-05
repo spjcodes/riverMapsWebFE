@@ -1,4 +1,4 @@
-export class CatalogConfig {
+export class CatalogConfigModule {
   catalogname: string = "";
   catalogtype: string = "";
   defaultdatabase: string = "";

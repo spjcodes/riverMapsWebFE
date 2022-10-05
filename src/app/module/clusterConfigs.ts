@@ -1,11 +1,11 @@
 import {JobConfigModule} from "./jobConfigModule";
 import {ClusterConfigModule} from "./ClusterConfigModule";
-import {CatalogConfig} from "./CatalogConfig";
+import {CatalogConfigModule} from "./CatalogConfigModule";
 import {ModuleConfModule} from "./ModuleConfModule";
 
 export class ClusterConfigs {
   clusterConfigList: Array<ClusterConfigModule> = [];
-  catalogConfigList:Array<CatalogConfig> = [];
+  catalogConfigList:Array<CatalogConfigModule> = [];
   moduleConfigList: Array<ModuleConfModule> = [];
   jobConfigList: Array<JobConfigModule> = [];
 }

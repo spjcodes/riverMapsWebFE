@@ -23,28 +23,39 @@ export class SqlEditComponent implements OnInit {
   logOptions: any;
   sqlJobModule: SqlJobModule = new SqlJobModule();
   clusterConfigs: ClusterConfigs = new ClusterConfigs();
+  jobConfig: any = new JobConfigModule();
+  jobConfigMap: Map<String, JobConfigModule> = new Map<String, JobConfigModule>();
+
 
   constructor(private sqlLabSer: SqlLabServicesService) {
 
   }
 
   ngOnInit(): void {
+    this.jobConfig = new JobConfigModule();
     this.jobInit();
     this.codeMirrorInit();
   }
 
   private jobInit() {
     this.sqlLabSer.getClusterConfigList().then((clusterConfigs: any) => {
-      //load jobConfigs
+      //load cluster, module, catalog configs
       if (clusterConfigs.status === 200) {
         this.clusterConfigs = clusterConfigs.result;
       } else {
         console.dir("load cluster metadata fail. please retry or check backEnd service is health");
         alert("load cluster metadata fail. please retry or check backEnd service is health");
       }
-      //load cluster, module, catalog configs
+      //load jobConfigs
       this.sqlLabSer.getJobConfigList().then((jobConfig: any) => {
-        this.clusterConfigs.jobConfigList = jobConfig.result;
+        if (jobConfig.status === 200) {
+          this.clusterConfigs.jobConfigList = jobConfig.result;
+          this.clusterConfigs.jobConfigList.forEach(jobConf => {
+            this.jobConfigMap.set(jobConf.configname, jobConf);
+          })
+        } else {
+          alert("load jobConfig fail:" + jobConfig.desc);
+        }
       });
     });
 
@@ -157,7 +168,9 @@ export class SqlEditComponent implements OnInit {
   }
 
   setJobConfig($event: Event) {
-    console.log((<HTMLSelectElement>$event.target).value);
-
+    const configName = (<HTMLSelectElement>$event.target).value;
+    console.log(configName);
+    this.jobConfig = this.jobConfigMap.get(configName);
   }
+
 }

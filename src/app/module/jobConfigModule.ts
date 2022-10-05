@@ -30,4 +30,6 @@ export class JobConfigModule {
 
   failurerate: number = 1;
 
+  descr: string = "";
+
 }
