@@ -69,27 +69,91 @@
 
       <!-- config flink job -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
         <div class="modal-dialog modal-lg">
+
+
+
           <div class="modal-content">
+
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">flink job configuration</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+
+
             <div class="modal-body">
+
+              <div class="input-group">
+                <label class="btn btn-dark disabled" type="text">config list</label>
+                <select class="form-select" (change)="setJobConfig($event)">
+                  <option  *ngFor="let c of this.clusterConfigs.jobConfigList" value="{{c.configname}}">{{c.configname}}</option>
+                </select>
+              </div>
+
               <form>
+
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">jobManageCores:</label>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <input type="text" class="form-control" id="tmmemory-name">
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">desc:</label>
-                  <textarea class="form-control" id="message-text"></textarea>
+                  <input class="form-control" id="tmnumslots-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">jobManageCores:</label>
+                  <input type="text" class="form-control" id="defaultparallel-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">statebackend:</label>
+                  <input class="form-control" id="statebackend-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">ckdir:</label>
+                  <input type="text" class="form-control" id="ckdir-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">desc:</label>
+                  <input class="form-control" id="ckinterval-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">restartstrategy:</label>
+                  <input type="text" class="form-control" id="restartstrategy-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">restartinterval:</label>
+                  <input class="form-control" id="restartinterval-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">failureinterval:</label>
+                  <input type="text" class="form-control" id="failureinterval-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">dalyinterval:</label>
+                  <input class="form-control" id="dalyinterval-text">
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">restartattempts:</label>
+                  <input type="text" class="form-control" id="restartattempts-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">failurerate:</label>
+                  <input class="form-control" id="failurerate-text">
                 </div>
               </form>
             </div>
+
             <div class="modal-footer">
+              <button type="button" class="btn btn-primary">add</button>
+              <button type="button" class="btn btn-success">save</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">save</button>
             </div>
           </div>
         </div>
