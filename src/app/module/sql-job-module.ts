@@ -1,4 +1,4 @@
-import {SqlJobConfig} from "./sql-job-config";
+import {JobConfigModule} from "./jobConfigModule";
 
 /**
  * author: jiayeli.cn
@@ -11,15 +11,9 @@ export class SqlJobModule {
   jobType: String = "";
   dataBase: String = "";
   table: String = "";
-  config: SqlJobConfig = new SqlJobConfig();
+  config: JobConfigModule = new JobConfigModule();
   sqlScript: String = "";
   isOutputLog: boolean = true;
-
-  clusters: Array<String> = ["default"];
-  modules:Array<String> = ["standLone"];
-  dataBases: Array<String> = ["default"];
-  tables: Array<String> = ["default"];
-  configs: Map<String, SqlJobConfig> = new Map<String, SqlJobConfig>([["default", new SqlJobConfig()]]);
   jobName: String = "";
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HostConfig} from "../../config/host-config";
 import {SqlJobModule} from "../../module/sql-job-module";
+import {JobConfigModule} from "../../module/jobConfigModule";
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,14 @@ export class SqlLabServicesService {
 
   }
 
-  private getJobModlesURL = "";
-  getJobModules() {
-    const p = {
+  private getJobConfigURL = "getJobConfigs";
+  getJobConfigList(): any {
+    console.dir("getJobconfigs url " + this.hostConfig.getMetadataUrl() + this.getJobConfigURL)
+    return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getJobConfigURL).toPromise();
+  }
 
-    };
-    return this.httpClient.get(this.hostConfig.getBaseUrl() + this.getJobModlesURL).toPromise();
+  private getClusterConfigsURL = "getClusterConfigs";
+  getClusterConfigList() {
+    return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterConfigsURL).toPromise();
   }
 }

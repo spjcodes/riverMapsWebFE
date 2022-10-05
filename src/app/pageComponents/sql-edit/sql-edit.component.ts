@@ -6,6 +6,8 @@ import 'codemirror/addon/selection/active-line.js'
 import 'codemirror/addon/edit/closebrackets.js'
 import {SqlLabServicesService} from "../../services/sqlLab/sql-lab-services.service";
 import {SqlJobModule} from "../../module/sql-job-module";
+import {ClusterConfigs} from "../../module/clusterConfigs";
+import {JobConfigModule} from "../../module/jobConfigModule";
 
 
 
@@ -19,30 +21,39 @@ export class SqlEditComponent implements OnInit {
   cmOptions: any;
   logContent: any;
   logOptions: any;
-  jobModule: SqlJobModule = new SqlJobModule();
-  jobConfigs: Array<String> = [];
+  sqlJobModule: SqlJobModule = new SqlJobModule();
+  clusterConfigs: ClusterConfigs = new ClusterConfigs();
 
   constructor(private sqlLabSer: SqlLabServicesService) {
 
   }
 
   ngOnInit(): void {
-    for (let key of this.jobModule.configs.keys()) {
-      this.jobConfigs.push(key);
-    }
+    this.jobInit();
     this.codeMirrorInit();
   }
 
   private jobInit() {
-    this.sqlLabSer.getJobModules().then((jobs: any) => {
-      if (jobs != null) {
-        this.jobModule = jobs;
+    this.sqlLabSer.getClusterConfigList().then((clusterConfigs: any) => {
+      //load jobConfigs
+      if (clusterConfigs.status === 200) {
+        this.clusterConfigs = clusterConfigs.result;
+      } else {
+        console.dir("load cluster metadata fail. please retry or check backEnd service is health");
+        alert("load cluster metadata fail. please retry or check backEnd service is health");
       }
+      //load cluster, module, catalog configs
+      this.sqlLabSer.getJobConfigList().then((jobConfig: any) => {
+        this.clusterConfigs.jobConfigList = jobConfig.result;
+      });
     });
+
+    console.dir(this.clusterConfigs)
+
   }
 
   private codeMirrorInit() {
-    this.jobModule.sqlScript = "o_< enjoy you sql tour... ";
+    this.sqlJobModule.sqlScript = "o_< enjoy you sql tour... ";
     this.cmOptions = {
       /* mode: "text/x-mysql",
        // 缩进格式
@@ -126,11 +137,10 @@ export class SqlEditComponent implements OnInit {
   }
 
   isOutput(isOutputLog: boolean) {
-    this.jobModule.isOutputLog = !isOutputLog;
+    this.sqlJobModule.isOutputLog = !isOutputLog;
   }
 
   setCluster(event: Event) {
-    console.log(this.jobModule.configs.get((<HTMLSelectElement>event.target).value));
     console.log((<HTMLSelectElement>event.target).value);
   }
 
@@ -138,7 +148,7 @@ export class SqlEditComponent implements OnInit {
     console.log((<HTMLSelectElement>event.target).value);
   }
 
-  setDatabaseName($event: Event) {
+  setCatalog($event: Event) {
     console.log((<HTMLSelectElement>$event.target).value);
   }
 

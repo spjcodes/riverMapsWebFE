@@ -12,7 +12,7 @@
         </div>-->
         <div class="input-group mb-3">
           <span class="btn btn-primary disabled">task name:</span>
-          <input type="text" placeholder="job name" class="form-control" id="basic-url" aria-describedby="job name" [(ngModel)]="jobModule.jobName">
+          <input type="text" placeholder="job name" class="form-control" id="basic-url" aria-describedby="job name" [(ngModel)]="sqlJobModule.jobName">
         </div>
       </div>
 
@@ -20,9 +20,8 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled">cluster:</label>
-          <select class="form-select" id="cluster" (change)="setCluster($event)" *ngFor="let c of this.jobModule.clusters">
-            <option selected>standAlong</option>
-            <option value="{{c}}">{{c}}</option>
+          <select class="form-select" id="cluster" (change)="setCluster($event)" >
+            <option *ngFor="let c of this.clusterConfigs.clusterConfigList" value="{{c.clustername}}">{{c.clustername}}</option>
           </select>
         </div>
       </div>
@@ -30,19 +29,17 @@
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled">module:</label>
-          <select class="form-select" id="module" (change)="setModule($event)" *ngFor="let m of this.jobModule.modules">
-            <option selected>standAlong</option>
-            <option value="{{m}}">{{m}}</option>
+          <select class="form-select" id="module" (change)="setModule($event)">
+              <option *ngFor="let m of this.clusterConfigs.moduleConfigList" value="{{m.modulename}}">{{m.modulename}}</option>
           </select>
         </div>
       </div>
 
       <div class="col-sm-10 col-md-4 col-xl-2 col-2  margin10">
         <div class="input-group">
-          <label class="btn btn-primary disabled">dataBase</label>
-          <select class="form-select" id="inputGroupSelect" (change)="setDatabaseName($event)" *ngFor="let d of this.jobModule.dataBases">
-            <option selected>default</option>
-            <option value="{{d}}">{{d}}</option>
+          <label class="btn btn-primary disabled">catalog</label>
+          <select class="form-select" id="inputGroupSelect" (change)="setCatalog($event)" >
+            <option *ngFor="let d of this.clusterConfigs.catalogConfigList" value="{{d.catalogname}}">{{d.catalogname}}</option>
           </select>
         </div>
       </div>
@@ -60,12 +57,11 @@
       <div class="col-sm-10 col-md-4  col-xl-2 col-2  margin10">
         <div class="input-group">
           <label class="btn btn-primary disabled" type="text">config</label>
-          <select class="form-select" id="inputGroupSelect2" aria-label="flink job configs" (change)="setJobConfig($event)" *ngFor="let c of this.jobConfigs">
-            <option value="default">default</option>
+          <select class="form-select" id="inputGroupSelect2" aria-label="flink job configs" (change)="setJobConfig($event)">
+            <option  *ngFor="let c of this.clusterConfigs.jobConfigList" value="{{c.configname}}">{{c.configname}}</option>
             <option type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                edit...
+              edit...
             </option>
-            <option value={{c}}>{{c}}</option>
           </select>
         </div>
       </div>
@@ -104,7 +100,7 @@
 
    <hr/>
 
-    <codemirror [(ngModel)]="this.jobModule.sqlScript" [config]="cmOptions" >
+    <codemirror [(ngModel)]="this.sqlJobModule.sqlScript" [config]="cmOptions" >
     </codemirror>
 
     <hr/>
@@ -113,7 +109,7 @@
 
       <ul id="jobConfigSwitch">
         <li >
-          <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <input (click)="isOutput(this.sqlJobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
           <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
         </li>
 <!--        <li  style="margin-left:60px;">
@@ -129,7 +125,7 @@
     <div class="">
 
 
-      <button  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(this.jobModule)">executor</button>
+      <button  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(this.sqlJobModule)">executor</button>
 
       <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
 
@@ -140,7 +136,7 @@
 
 
 
-    <codemirror [(ngModel)]="logContent" [config]="logOptions" *ngIf="this.jobModule.isOutputLog">
+    <codemirror [(ngModel)]="logContent" [config]="logOptions" *ngIf="this.sqlJobModule.isOutputLog">
     </codemirror>
 
   </div>
