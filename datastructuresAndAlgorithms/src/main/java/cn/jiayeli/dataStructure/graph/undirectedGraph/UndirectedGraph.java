@@ -13,18 +13,18 @@ import java.util.List;
 
 /**
  * @author: jiayeli.cn
- * @description undirected graph
+ * @description undirected graph Adjacent table impl
  * @date: 2022/10/30 下午8:47
  */
 public class UndirectedGraph implements Graph {
 
     private static final Logger logger = LoggerFactory.getLogger(UndirectedGraph.class);
 
-    public int v;
+    private int v;
 
-    public int e;
+    private int e;
 
-    List<ArrayList<Integer>> adj;
+    private List<ArrayList<Integer>> adj;
 
     UndirectedGraph(int v) {
         this.v = v;
@@ -118,5 +118,30 @@ public class UndirectedGraph implements Graph {
             s += "\n";
         }
         return s;
+    }
+
+
+    public int getV() {
+        return v;
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
+
+    public int getE() {
+        return e;
+    }
+
+    public void setE(int e) {
+        this.e = e;
+    }
+
+    public List<ArrayList<Integer>> getAdj() {
+        return adj;
+    }
+
+    public void setAdj(List<ArrayList<Integer>> adj) {
+        this.adj = adj;
     }
 }
