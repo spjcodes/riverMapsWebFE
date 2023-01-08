@@ -5,9 +5,9 @@ import * as CodeMirror from "codemirror";
 import 'codemirror/addon/selection/active-line.js'
 import 'codemirror/addon/edit/closebrackets.js'
 import {SqlLabServicesService} from "../../services/sqlLab/sql-lab-services.service";
-import {SqlJobModule} from "../../module/sql-job-module";
-import {ClusterConfigs} from "../../module/clusterConfigs";
-import {JobConfigModule} from "../../module/jobConfigModule";
+import {SqlJobModel} from "../../model/sql-job-model";
+import {ClusterConfigs} from "../../model/clusterConfigs";
+import {JobConfigModel} from "../../model/jobConfigModel";
 
 
 
@@ -21,25 +21,24 @@ export class SqlEditComponent implements OnInit {
   cmOptions: any;
   logContent: any;
   logOptions: any;
-  sqlJobModule: SqlJobModule = new SqlJobModule();
+  sqlJobModule: SqlJobModel = new SqlJobModel();
+  jobConfig: any = new JobConfigModel();
+  jobConfigMap: Map<String, JobConfigModel> = new Map<String, JobConfigModel>();
   clusterConfigs: ClusterConfigs = new ClusterConfigs();
-  jobConfig: any = new JobConfigModule();
-  jobConfigMap: Map<String, JobConfigModule> = new Map<String, JobConfigModule>();
-
+  jobConfigList: Array<Map<String, String>> = [];
 
   constructor(private sqlLabSer: SqlLabServicesService) {
-
   }
 
   ngOnInit(): void {
-    this.jobConfig = new JobConfigModule();
     this.jobInit();
     this.codeMirrorInit();
+    this.jobConfig = new JobConfigModel();
   }
 
   private jobInit() {
     this.sqlLabSer.getClusterConfigList().then((clusterConfigs: any) => {
-      //load cluster, module, catalog configs
+      //load cluster, model, catalog configs
       if (clusterConfigs.status === 200) {
         this.clusterConfigs = clusterConfigs.result;
       } else {
@@ -47,14 +46,14 @@ export class SqlEditComponent implements OnInit {
         alert("load cluster metadata fail. please retry or check backEnd service is health");
       }
       //load jobConfigs
-      this.sqlLabSer.getJobConfigList().then((jobConfig: any) => {
-        if (jobConfig.status === 200) {
-          this.clusterConfigs.jobConfigList = jobConfig.result;
+      this.sqlLabSer.getJobConfigList().then((result: any) => {
+        if (result.status === 200) {
+          this.clusterConfigs.jobConfigList = result.result;
           this.clusterConfigs.jobConfigList.forEach(jobConf => {
             this.jobConfigMap.set(jobConf.configname, jobConf);
           })
         } else {
-          alert("load jobConfig fail:" + jobConfig.desc);
+          alert("load jobConfig fail:" + result.desc);
         }
       });
     });
@@ -92,6 +91,7 @@ export class SqlEditComponent implements OnInit {
       // theme: 'base16-light',
       autofocus: true,
       hint: CodeMirror.hint.sql,
+      // cm.setOption("fullScreen", !cm.getOption("fullScreen"));
       hintOptions: {
         function(cm: any, event: any) {
           //所有的字母和'$','{','.'在键按下之后都将触发自动完成
@@ -128,9 +128,12 @@ export class SqlEditComponent implements OnInit {
     };
   }
 
-  executorSql(jobModule: SqlJobModule) {
+  executorSql(jobModel: SqlJobModel) {
 
-     this.sqlLabSer.executorSqlTask(jobModule).then((result: any) => {
+     this.sqlLabSer.executorSqlTask(jobModel).then((result: any) => {
+       if (result.statusCode != 200) {
+         alert("executor job failed!\n cause by: " + result.desc);
+       }
        console.dir(result);
      });
   }
@@ -152,25 +155,45 @@ export class SqlEditComponent implements OnInit {
   }
 
   setCluster(event: Event) {
-    console.log((<HTMLSelectElement>event.target).value);
+    const clusterName = (<HTMLSelectElement>event.target).value;
+    console.log(clusterName);
+    this.sqlJobModule.cluster = clusterName;
   }
 
   setModule(event: Event) {
-    console.log((<HTMLSelectElement>event.target).value);
+    const jobType = (<HTMLSelectElement>event.target).value;
+    console.log(jobType);
+    this.sqlJobModule.jobType = jobType;
   }
 
   setCatalog($event: Event) {
-    console.log((<HTMLSelectElement>$event.target).value);
+    const catalogName = (<HTMLSelectElement>$event.target).value;
+    console.log(catalogName);
+    this.sqlJobModule.catalog = catalogName;
   }
 
   setTableName($event: Event) {
-    console.log((<HTMLSelectElement>$event.target).value);
+    const tableName = (<HTMLSelectElement>$event.target).value;
+    console.log(tableName);
+    this.sqlJobModule.table = tableName;
   }
 
-  setJobConfig($event: Event) {
-    const configName = (<HTMLSelectElement>$event.target).value;
+  selectJobConfig(event : Event) {
+
+    let configName : String = (<HTMLSelectElement>event.target).value;
     console.log(configName);
     this.jobConfig = this.jobConfigMap.get(configName);
+    console.dir(this.jobConfig);
+    this.sqlJobModule.configuration = this.jobConfig;
   }
 
+  addJobConfig(jobConfig: JobConfigModel) {
+    this.jobConfigMap.set(jobConfig.configname, jobConfig);
+    this.sqlLabSer.addJobConfig(jobConfig).then((result: any) => {
+      if (result.statusCode != 200) {
+        alert("addJobConfig failed! cause by: " + result.desc);
+      }
+      console.log(result.desc);
+    });
+  }
 }

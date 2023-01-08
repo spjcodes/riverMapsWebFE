@@ -1,4 +1,4 @@
-export class JobConfigModule {
+export class JobConfigModel {
 
   configname: string = "";
 

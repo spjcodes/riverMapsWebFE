@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HostConfig} from "../../config/host-config";
-import {SqlJobModule} from "../../module/sql-job-module";
-import {JobConfigModule} from "../../module/jobConfigModule";
+import {SqlJobModel} from "../../model/sql-job-model";
+import {JobConfigModel} from "../../model/jobConfigModel";
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +12,22 @@ export class SqlLabServicesService {
   constructor(private httpClient: HttpClient, private hostConfig: HostConfig) { }
 
   private executorSqlJobURL = "executorSqlTask";
-  public executorSqlTask(jobModule: SqlJobModule): any {
+  public executorSqlTask(sqlJobModel: SqlJobModel): any {
 
     const p = {
-      "jobName": jobModule.jobName,
-      "config": jobModule.config,
-      "jobType": jobModule.jobType,
-      "cluster": jobModule.cluster,
-      "dataBase": jobModule.dataBase,
-      "table": jobModule.table,
-      "isOutputLog": jobModule.isOutputLog,
-      "sqlScript": jobModule.sqlScript
+      "jobName": sqlJobModel.jobName,
+      "configuration": sqlJobModel.configuration,
+      "jobType": sqlJobModel.jobType,
+      "cluster": sqlJobModel.cluster,
+      "dataBase": sqlJobModel.dataBase,
+      "table": sqlJobModel.table,
+      "isOutputLog": sqlJobModel.isOutputLog,
+      "sqlScript": sqlJobModel.sqlScript
     };
 
-    console.dir(p)
+    console.dir(sqlJobModel);
     // return this.httpClient.post("http://localhost:8080/" + this.executorSqlJobURL, p).toPromise();
-    return this.httpClient.post(this.hostConfig.getSqlLabUrl() + this.executorSqlJobURL, p).toPromise();
+    return this.httpClient.post(this.hostConfig.getSqlLabUrl() + this.executorSqlJobURL, sqlJobModel).toPromise();
 
   }
 
@@ -40,5 +40,14 @@ export class SqlLabServicesService {
   private getClusterConfigsURL = "getClusterConfigs";
   getClusterConfigList() {
     return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterConfigsURL).toPromise();
+  }
+
+  private addJobConfigURL = "addJobConfig"
+  addJobConfig(jobConfig: JobConfigModel) {
+    let p = {
+      "jobConfig" :jobConfig
+    }
+    return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.addJobConfigURL, p).toPromise();
+
   }
 }
