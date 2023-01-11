@@ -68,75 +68,81 @@
             <div class="modal-body">
 
               <div class="input-group">
+
                 <label class="btn btn-dark disabled" type="text">config list</label>
                 <select class="form-select" (change)="selectJobConfig($event)">
                   <option  *ngFor="let c of this.clusterConfigs.jobConfigList" value="{{c.configname}}">{{c.configname}}</option>
+                  <option  class="form-select" (click)="newConfig(this.jobConfig)" ><p style="color: green">new config</p></option>
                 </select>
               </div>
 
             <form>
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">configname:</label>
+                <label for="recipient-name" class="col-form-label">configName:</label>
                 <input name="jobConfig" [(ngModel)]="this.jobConfig.configname" type="text" class="form-control" id="configname-name">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">tmmemory:</label>
+                <label for="recipient-name" class="col-form-label">tmMemory(M):</label>
                 <input name="tmmemory" [(ngModel)]="this.jobConfig.tmmemory" type="text" class="form-control" id="tmmemory-name">
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">tmnumslots:</label>
+                <label for="message-text" class="col-form-label">tmSlots:</label>
                 <input name="tmnumslots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmnumslots-text">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">defaultparallel:</label>
+                <label for="recipient-name" class="col-form-label">defaultParallel:</label>
                 <input name="defaultparallel" [(ngModel)]="this.jobConfig.defaultparallel" type="text" class="form-control" id="defaultparallel-name">
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">statebackend:</label>
+                <label for="message-text" class="col-form-label">stateBackend:</label>
                 <input  name="statebackend" [(ngModel)]="this.jobConfig.statebackend" class="form-control" id="statebackend-text">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">ckdir:</label>
+                <label for="recipient-name" class="col-form-label">ckDir:</label>
                 <input name="ckdir" [(ngModel)]="this.jobConfig.ckdir" type="text" class="form-control" id="ckdir-name">
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">ckinterval:</label>
+                <label for="message-text" class="col-form-label">ckInterval(ms):</label>
                 <input name="ckinterval" [(ngModel)]="this.jobConfig.ckinterval" class="form-control" id="ckinterval-text">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">restartstrategy:</label>
-                <input name="restartstrategy" [(ngModel)]="this.jobConfig.restartstrategy" type="text" class="form-control" id="restartstrategy-name">
+                <label for="recipient-name" class="col-form-label">restartStrategy:</label>
+                <select class="form-select" (change)="selectRestartStrategy($event)">
+                  <option selected>none</option>
+                  <option>fixedDelay</option>
+                  <option>failureRate</option>
+                </select>
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">restartinterval:</label>
+                <label for="message-text" class="col-form-label">restartInterval(ms):</label>
                 <input name="restartinterval" [(ngModel)]="this.jobConfig.restartinterval" class="form-control" id="restartinterval-text">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">failureinterval:</label>
+                <label for="recipient-name" class="col-form-label">failureInterval(ms):</label>
                 <input name="failureinterval" [(ngModel)]="this.jobConfig.failureinterval" type="text" class="form-control" id="failureinterval-name">
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">dalyinterval:</label>
+                <label for="message-text" class="col-form-label">dalyInterval(ms):</label>
                 <input name="dalyinterval" [(ngModel)]="this.jobConfig.dalyinterval" class="form-control" id="dalyinterval-text">
               </div>
 
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">restartattempts:</label>
+                <label for="recipient-name" class="col-form-label">restartAttempts:</label>
                 <input name="restartattempts" [(ngModel)]="this.jobConfig.restartattempts" type="text" class="form-control" id="restartattempts-name">
               </div>
 
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">failurerate:</label>
+                <label for="message-text" class="col-form-label">failureRate:</label>
                 <input name="failurerate" [(ngModel)]="this.jobConfig.failurerate" class="form-control" id="failurerate-text">
               </div>
 
@@ -149,8 +155,8 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="addJobConfig(this.jobConfig)">add</button>
-              <button type="button" class="btn btn-success">save</button>
+<!--              <button type="button" class="btn btn-primary" (click)="addJobConfig(this.jobConfig)">add</button>-->
+              <button type="button" class="btn btn-success" (click)="addJobConfig(this.jobConfig)">save</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>

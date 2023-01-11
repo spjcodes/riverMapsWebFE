@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/hint/sql-hint.js';
 import * as CodeMirror from "codemirror";
@@ -8,7 +8,6 @@ import {SqlLabServicesService} from "../../services/sqlLab/sql-lab-services.serv
 import {SqlJobModel} from "../../model/sql-job-model";
 import {ClusterConfigs} from "../../model/clusterConfigs";
 import {JobConfigModel} from "../../model/jobConfigModel";
-
 
 
 @Component({
@@ -45,21 +44,26 @@ export class SqlEditComponent implements OnInit {
         console.dir("load cluster metadata fail. please retry or check backEnd service is health");
         alert("load cluster metadata fail. please retry or check backEnd service is health");
       }
-      //load jobConfigs
-      this.sqlLabSer.getJobConfigList().then((result: any) => {
-        if (result.status === 200) {
-          this.clusterConfigs.jobConfigList = result.result;
-          this.clusterConfigs.jobConfigList.forEach(jobConf => {
-            this.jobConfigMap.set(jobConf.configname, jobConf);
-          })
-        } else {
-          alert("load jobConfig fail:" + result.desc);
-        }
-      });
+
+  //load jobConfigs
+  this.jobConfigInit();
     });
 
     console.dir(this.clusterConfigs)
 
+  }
+
+  private jobConfigInit() {
+    this.sqlLabSer.getJobConfigList().then((result: any) => {
+      if (result.status === 200) {
+        this.clusterConfigs.jobConfigList = result.result;
+        this.clusterConfigs.jobConfigList.forEach(jobConf => {
+          this.jobConfigMap.set(jobConf.configname, jobConf);
+        })
+      } else {
+        alert("load jobConfig fail:" + result.desc);
+      }
+    });
   }
 
   private codeMirrorInit() {
@@ -192,8 +196,21 @@ export class SqlEditComponent implements OnInit {
     this.sqlLabSer.addJobConfig(jobConfig).then((result: any) => {
       if (result.statusCode != 200) {
         alert("addJobConfig failed! cause by: " + result.desc);
+      } else {
+        // this.jobConfigInit();
+        this.jobConfigMap.set(jobConfig.configname, jobConfig);
       }
       console.log(result.desc);
     });
+  }
+
+  newConfig(jobConfig: any) {
+    this.jobConfig = new JobConfigModel();
+  }
+
+  selectRestartStrategy($event: Event) {
+    let restartstrategy = (<HTMLSelectElement>$event.target).value;
+    console.log(restartstrategy);
+    this.jobConfig.restartstrategy = restartstrategy;
   }
 }
