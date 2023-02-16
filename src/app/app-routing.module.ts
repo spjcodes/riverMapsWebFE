@@ -4,11 +4,13 @@ import {CatalogManagerComponent} from "./pageComponents/catalog-manager/catalog-
 import {SqlEditComponent} from "./pageComponents/sql-edit/sql-edit.component";
 import {DeploymentComponent} from "./pageComponents/deployment/deployment.component";
 import {UserInfoComponent} from "./pageComponents/user-info/user-info.component";
+import {JobManagerComponent} from "./pageComponents/job-manager/job-manager.component";
 
 const routes: Routes = [
   {path:'', component: SqlEditComponent},
   {path:'catalogManager', component: CatalogManagerComponent},
   {path:'sqlEdit', component: SqlEditComponent},
+  {path:'jobManager', component: JobManagerComponent},
   {path:'deployment', component: DeploymentComponent},
   {path:'userInfo', component: UserInfoComponent},
 ];

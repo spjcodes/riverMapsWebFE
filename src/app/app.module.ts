@@ -12,6 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service";
 import {HostConfig} from "./config/host-config";
 import {CodemirrorModule} from "ng2-codemirror";
+import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {CodemirrorModule} from "ng2-codemirror";
     CatalogManagerComponent,
     SqlEditComponent,
     DeploymentComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    JobManagerComponent
   ],
   imports: [
     BrowserModule,
