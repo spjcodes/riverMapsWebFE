@@ -58,7 +58,7 @@ export class SqlEditComponent implements OnInit {
       if (result.status === 200) {
         this.clusterConfigs.jobConfigList = result.result;
         this.clusterConfigs.jobConfigList.forEach(jobConf => {
-          this.jobConfigMap.set(jobConf.configname, jobConf);
+          this.jobConfigMap.set(jobConf.configName, jobConf);
         })
       } else {
         alert("load jobConfig fail:" + result.desc);
@@ -192,13 +192,13 @@ export class SqlEditComponent implements OnInit {
   }
 
   addJobConfig(jobConfig: JobConfigModel) {
-    this.jobConfigMap.set(jobConfig.configname, jobConfig);
+    this.jobConfigMap.set(jobConfig.configName, jobConfig);
     this.sqlLabSer.addJobConfig(jobConfig).then((result: any) => {
       if (result.statusCode != 200) {
         alert("addJobConfig failed! cause by: " + result.desc);
       } else {
         // this.jobConfigInit();
-        this.jobConfigMap.set(jobConfig.configname, jobConfig);
+        this.jobConfigMap.set(jobConfig.configName, jobConfig);
       }
       console.log(result.desc);
     });
@@ -210,7 +210,13 @@ export class SqlEditComponent implements OnInit {
 
   selectRestartStrategy($event: Event) {
     let restartstrategy = (<HTMLSelectElement>$event.target).value;
-    console.log(restartstrategy);
+    console.log("RestartStrategy: " + restartstrategy);
     this.jobConfig.restartstrategy = restartstrategy;
+  }
+
+  selectStateBackendStrategy($event: Event) {
+    let strategy = (<HTMLSelectElement>$event.target).value;
+    console.log("stateBackend: " + strategy);
+    this.jobConfig.statebackend = strategy;
   }
 }

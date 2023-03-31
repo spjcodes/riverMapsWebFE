@@ -44,10 +44,10 @@ export class SqlLabServicesService {
 
   private addJobConfigURL = "addJobConfig"
   addJobConfig(jobConfig: JobConfigModel) {
-    let p = {
+   /* let p = {
       "ckdir": jobConfig.ckdir,
       "ckinterval": jobConfig.ckinterval,
-      "configname": jobConfig.configname,
+      "configname": jobConfig.configName,
       "dalyinterval": jobConfig.dalyinterval,
       "defaultparallel": jobConfig.defaultparallel,
       "failureinterval": jobConfig.failureinterval,
@@ -59,6 +59,24 @@ export class SqlLabServicesService {
       "savepoint": jobConfig.savepoint,
       "statebackend": jobConfig.statebackend,
       "tmnumslots": jobConfig.tmnumslots
+    }*/
+    let p = {
+      "checkpointDir": jobConfig.ckdir,
+      "checkpointInterval": jobConfig.ckinterval,
+      "minPauseBetweenCheckpoints": jobConfig.minPauseBetwCks,
+      "configName": jobConfig.configName,
+      "delayInterval": jobConfig.dalyinterval,
+      "parallelism_default": jobConfig.defaultparallel,
+      "failureInterval": jobConfig.failureinterval,
+      "failureRate": jobConfig.failurerate,
+      "taskmanager_memory_process_size": jobConfig.tmmemory,
+      "jobmanager_memory_process_size": jobConfig.jmmemory,
+      "taskmanager_numberOfTaskSlots": jobConfig.tmnumslots,
+      "restartattempts": jobConfig.restartattempts,
+      "restartInterval": jobConfig.restartinterval,
+      "restartStrategy": jobConfig.restartstrategy,
+      "savePointDir": jobConfig.savepoint,
+      "stateBackend": jobConfig.statebackend
     }
     return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.addJobConfigURL, p).toPromise();
 

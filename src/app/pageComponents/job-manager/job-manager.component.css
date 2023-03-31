@@ -2,7 +2,7 @@ table{
   width: 100%;
   table-layout: fixed;
 }
-.autocut{
+.autoCut{
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
@@ -12,7 +12,7 @@ table{
   -moz-text-overflow: ellipsis;
   -webkit-text-overflow: ellipsis;
 }
-.autocut:hover
+.autoCut:hover
 {
   overflow:visible;
   white-space:normal;
