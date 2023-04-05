@@ -76,51 +76,115 @@
                 </select>
               </div>
 
-            <form>
+              <hr style="color: dodgerblue"/>
+
+             <form>
               <div class="mb-3">
                 <label class="col-form-label">configName:</label>
                 <input name="jobConfig" [(ngModel)]="this.jobConfig.configName" type="text" class="form-control" id="configname-name">
               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">tmMemory(M):</label>
-                <input name="tmmemory" [(ngModel)]="this.jobConfig.tmmemory" type="text" class="form-control" id="tmmemory-name">
-              </div>
+<!--               resource config -->
+               <div class="mb-3">
+                 <label class="col-form-label">jmMemory(M):</label>
+                 <input name="tmmemory" [(ngModel)]="this.jobConfig.jmmemory" type="text" class="form-control" id="jmmemory-name">
+               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">tmSlots:</label>
-                <input name="tmnumslots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmnumslots-text">
-              </div>
+               <div class="mb-3">
+                 <label class="col-form-label">tmMemory(M):</label>
+                 <input name="tmmemory" [(ngModel)]="this.jobConfig.tmmemory" type="text" class="form-control" id="tmmemory-name">
+               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">defaultParallel:</label>
-                <input name="defaultparallel" [(ngModel)]="this.jobConfig.defaultparallel" type="text" class="form-control" id="defaultparallel-name">
-              </div>
+               <div class="mb-3">
+                 <label class="col-form-label">tmSlots:</label>
+                 <input name="tmnumslots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmnumslots-text">
+               </div>
 
+               <div class="mb-3">
+                 <label class="col-form-label">defaultParallel:</label>
+                 <input name="defaultparallel" [(ngModel)]="this.jobConfig.defaultparallel" type="text" class="form-control" id="defaultparallel-name">
+               </div>
+
+
+<!--              checkpoint config   -->
               <div class="mb-3">
-                <label class="col-form-label">stateBackend:</label>
-                <select class="form-select" (change)="selectStateBackendStrategy($event)">
-                  <option selected>fsStateBackend</option>
-                  <option>memoryStateBackend</option>
-                  <option>rocksDBStateBackend</option>
+                <label class="col-form-label">enableCheckPoint:</label>
+                <select class="form-select" (change)="enableCheckPoint($event)">
+                  <option selected>enable</option>
+                  <option class="btn-danger">disable</option>
                 </select>
               </div>
+
+              <div class="mb-3" style="display: inline-block">
+                <label class="col-form-label" style="width:18%; float:left"  >ckInterval:</label>
+                <input class="form-control"  name="ckinterval" style="float:left; width:20%; margin-right: 10%;" [(ngModel)]="this.jobConfig.ckinterval"  id="ckinterval-text">
+
+                 <label class="form-check-inline col-form-label" style="float:left; width:24%;" >ckIntervalTimeType:</label>
+                 <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setCKIntervalTimeType($event)">
+                   <option selected>milliseconds</option>
+                   <option class="btn-danger">seconds</option>
+                   <option class="btn-danger">minutes</option>
+                   <option class="btn-danger">hours</option>
+                 </select>
+              </div>
+
+               <div class="mb-3" style="display: inline-block">
+                 <label class="col-form-label" style="width:18%; float:left"  >ckTimeOut:</label>
+                 <input class="form-control"  name="ckinterval" style="float:left; width:20%; margin-right: 10%;" [(ngModel)]="this.jobConfig.ckTimeout"  id="ckTimeOut-text">
+
+                 <label class="form-check-inline col-form-label" style="float:left; width:24%;" >ckIntervalTimeType:</label>
+                 <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setCKIntervalTimeType($event)">
+                   <option selected>milliseconds</option>
+                   <option class="btn-danger">seconds</option>
+                   <option class="btn-danger">minutes</option>
+                   <option class="btn-danger">hours</option>
+                 </select>
+               </div>
 
               <div class="mb-3">
                 <label class="col-form-label">ckDir:</label>
                 <input name="ckdir" [(ngModel)]="this.jobConfig.ckdir" type="text" class="form-control" id="ckdir-name">
               </div>
 
+               <div class="mb-3" style="display: inline-block">
+                 <label class="col-form-label" style="width:35%; float:left"  >minPauseBetweenCheckpoints:</label>
+                 <input [(ngModel)]="this.jobConfig.minPauseBetwCks" class="form-control"  name="minPauseBetwCks" style="float:left; width:15%; margin-right: 5%;" id="minPauseBetwCks-text">
+
+                 <label class="form-check-inline col-form-label" style="float:left; width:12%;" >TimeType:</label>
+                 <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setMinPauBetCKTimeType($event)">
+                   <option selected>milliseconds</option>
+                   <option class="btn-danger">seconds</option>
+                   <option class="btn-danger">minutes</option>
+                   <option class="btn-danger">hours</option>
+                 </select>
+               </div>
+
+
+<!--           state backend config-->
               <div class="mb-3">
-                <label class="col-form-label">ckInterval(ms):</label>
-                <input name="ckinterval" [(ngModel)]="this.jobConfig.ckinterval" class="form-control" id="ckinterval-text">
+                <label class="col-form-label">stateBackend:</label>
+                <select class="form-select" (change)="selectStateBackend($event)">
+                  <option selected>fsStateBackend</option>
+                  <option>memoryStateBackend</option>
+                  <option>rocksDBStateBackend</option>
+                </select>
               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">ckInterval(ms):</label>
-                <input name="minPauseBetwCks" [(ngModel)]="this.jobConfig.minPauseBetwCks" class="form-control" id="minPauseBetwCks-text">
-              </div>
+               <div class="mb-3">
+                 <label class="col-form-label">stateBackendDir:</label>
+                 <input name="ckdir" [(ngModel)]="this.jobConfig.statebackendPath" type="text" class="form-control" id="stateBackendDir-name">
+               </div>
 
+               <div class="mb-3">
+                 <label class="col-form-label">ExtCkClean:</label>
+                 <select class="form-select" (change)="setExtCkClean($event)">
+                   <option selected>NO_EXTERNALIZED_CHECKPOINTS</option>
+                   <option>RETAIN_ON_CANCELLATION</option>
+                   <option>DELETE_ON_CANCELLATION</option>
+                 </select>
+               </div>
+
+<!--          restart strategy config -->
               <div class="mb-3">
                 <label class="col-form-label">restartStrategy:</label>
                 <select class="form-select" (change)="selectRestartStrategy($event)">
@@ -130,31 +194,45 @@
                 </select>
               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">restartInterval(ms):</label>
-                <input name="restartinterval" [(ngModel)]="this.jobConfig.restartinterval" class="form-control" id="restartinterval-text">
-              </div>
+               <div class="mb-3" style="display: inline-block">
+                 <label class="col-form-label" style="width:25%; float:left"  >failureDelayInterval:</label>
+                 <input [(ngModel)]="this.jobConfig.faiDelInt" class="form-control"  name="faiDelInt" style="float:left; width:15%; margin-right: 5%;" id="faiDelInt-text">
 
-              <div class="mb-3">
-                <label class="col-form-label">failureInterval(ms):</label>
-                <input name="failureinterval" [(ngModel)]="this.jobConfig.failureinterval" type="text" class="form-control" id="failureinterval-name">
-              </div>
+                 <label class="form-check-inline col-form-label" style="float:left; width:12%;" >TimeType:</label>
+                 <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setFailureDelayIntervalTimeType($event)">
+                   <option selected>milliseconds</option>
+                   <option class="btn-danger">seconds</option>
+                   <option class="btn-danger">minutes</option>
+                   <option class="btn-danger">hours</option>
+                 </select>
+               </div>
+            <!--   fixDelay            -->
 
-              <div class="mb-3">
-                <label class="col-form-label">dalyInterval(ms):</label>
-                <input name="dalyinterval" [(ngModel)]="this.jobConfig.dalyinterval" class="form-control" id="dalyinterval-text">
-              </div>
+               <div class="mb-3">
+                 <label class="col-form-label">failureNumber:</label>
+                 <input name="failureNum" [(ngModel)]="this.jobConfig.failureNum" class="form-control" id="failureNum-text">
+               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">restartAttempts:</label>
-                <input name="restartattempts" [(ngModel)]="this.jobConfig.restartattempts" type="text" class="form-control" id="restartattempts-name">
-              </div>
+               <!--      failureRate               -->
+               <div class="mb-3">
+                 <label class="col-form-label">failureRate:</label>
+                 <input name="failurerate" [(ngModel)]="this.jobConfig.failurerate" class="form-control" id="failurerate-text">
+               </div>
 
-              <div class="mb-3">
-                <label class="col-form-label">failureRate:</label>
-                <input name="failurerate" [(ngModel)]="this.jobConfig.failurerate" class="form-control" id="failurerate-text">
-              </div>
+               <div class="mb-3" style="display: inline-block">
+                 <label class="col-form-label" style="width:18%; float:left"  >failureInterval:</label>
+                 <input [(ngModel)]="this.jobConfig.failureinterval"  class="form-control"  name="failureinterval" style="float:left; width:15%; margin-right: 5%;" id="failureinterval-text">
 
+                 <label class="form-check-inline col-form-label" style="float:left; width:16%;" >TimeType:</label>
+                 <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setFailureIntervalTimeType($event)">
+                   <option selected>milliseconds</option>
+                   <option class="btn-danger">seconds</option>
+                   <option class="btn-danger">minutes</option>
+                   <option class="btn-danger">hours</option>
+                 </select>
+               </div>
+
+<!--          config file desc -->
               <div class="mb-3">
                 <label class="col-form-label">desc:</label>
                 <textarea name="tmnumslots"  [(ngModel)]="this.jobConfig.descr" class="form-control" id="descr-text"></textarea>
@@ -189,10 +267,7 @@
           <input (click)="isOutput(this.sqlJobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
           <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
         </li>
-<!--        <li  style="margin-left:60px;">
-          <input (click)="isOutput(this.jobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
-          <label class="form-check-label1" for="flexSwitchCheckDefault1">outputLog</label>
-        </li>-->
+
       </ul>
 
     </div>

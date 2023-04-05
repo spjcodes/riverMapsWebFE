@@ -61,22 +61,31 @@ export class SqlLabServicesService {
       "tmnumslots": jobConfig.tmnumslots
     }*/
     let p = {
+      "configName": jobConfig.configName,
+      "enableCheckpoint": jobConfig.enabCk,
       "checkpointDir": jobConfig.ckdir,
       "checkpointInterval": jobConfig.ckinterval,
+      "checkpointTimeout": jobConfig.ckTimeout,
+      "checkpointingMode": jobConfig.ckMode,
       "minPauseBetweenCheckpoints": jobConfig.minPauseBetwCks,
-      "configName": jobConfig.configName,
-      "delayInterval": jobConfig.dalyinterval,
+      // "delayInterval": jobConfig.dalyinterval,
       "parallelism_default": jobConfig.defaultparallel,
-      "failureInterval": jobConfig.failureinterval,
+      "failureNum": jobConfig.failureNum,
+      "failureDelayInterval": jobConfig.faiDelInt,
+      "failureDelayIntervalTimeType": jobConfig.faiDelIntTimTyp,
       "failureRate": jobConfig.failurerate,
       "taskmanager_memory_process_size": jobConfig.tmmemory,
       "jobmanager_memory_process_size": jobConfig.jmmemory,
       "taskmanager_numberOfTaskSlots": jobConfig.tmnumslots,
       "restartattempts": jobConfig.restartattempts,
       "restartInterval": jobConfig.restartinterval,
+      "restartIntervalTimeType": jobConfig.restartIntervalTimTyp,
       "restartStrategy": jobConfig.restartstrategy,
       "savePointDir": jobConfig.savepoint,
-      "stateBackend": jobConfig.statebackend
+      "stateBackend": jobConfig.statebackend,
+      "stateBackendPath": jobConfig.statebackendPath,
+      "externalizedCheckpointCleanup": jobConfig.ExteCkClean,
+      "describe": jobConfig.descr
     }
     return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.addJobConfigURL, p).toPromise();
 

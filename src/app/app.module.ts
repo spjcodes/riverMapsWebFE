@@ -13,6 +13,7 @@ import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service"
 import {HostConfig} from "./config/host-config";
 import {CodemirrorModule} from "ng2-codemirror";
 import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
+import { DataSyncComponent } from './pageComponents/DS/data-sync/data-sync.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { JobManagerComponent } from './pageComponents/job-manager/job-manager.co
     SqlEditComponent,
     DeploymentComponent,
     UserInfoComponent,
-    JobManagerComponent
+    JobManagerComponent,
+    DataSyncComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,13 @@ export class JobConfigModel {
   //AT_LEAST_ONCE
   ckMode: string = "EXACTLY_ONCE";
 
+  ckdir: string = "";
+
+  ckinterval: number = 50000;
+
+  ckTimeout: number = 2000;
+
+  minPauseBetwCks: number = 2000;
 
   ExteCkClean: string = "RETAIN_ON_CANCELLATION";
 
@@ -21,31 +28,31 @@ export class JobConfigModel {
   //fsStateBackend | memoryStateBackend
   statebackend: string = "";
 
-  ckdir: string = "";
+  statebackendPath: string = "";
 
   savepoint: string = "";
-
-  ckinterval: number = 50000;
-
-  ckTimeout: number = 2000;
-
-  minPauseBetwCks: number = 2000;
 
   restartstrategy: string = "";
 
   restartinterval: number = 5000;
 
+  restartIntervalTimTyp: string = "milliseconds";
+
+  faiDelInt: number = 1000;
+
+  faiDelIntTimTyp: string = "milliseconds";
+
   failureinterval: number = 2000;
 
   failInterTimeType: string = "";
-
-  dalyinterval: number = 2000;
 
   dalyintervalTimeType: string = "";
 
   restartattempts: number = 1;
 
   failurerate: number = 1;
+
+  failureNum: number = 1;
 
   descr: string = "";
 

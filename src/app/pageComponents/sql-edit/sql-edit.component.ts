@@ -184,11 +184,10 @@ export class SqlEditComponent implements OnInit {
 
   selectJobConfig(event : Event) {
 
-    let configName : String = (<HTMLSelectElement>event.target).value;
+    let configName: String = (<HTMLSelectElement>event.target).value;
     console.log(configName);
     this.jobConfig = this.jobConfigMap.get(configName);
     console.dir(this.jobConfig);
-    this.sqlJobModule.configuration = this.jobConfig;
   }
 
   addJobConfig(jobConfig: JobConfigModel) {
@@ -214,9 +213,39 @@ export class SqlEditComponent implements OnInit {
     this.jobConfig.restartstrategy = restartstrategy;
   }
 
-  selectStateBackendStrategy($event: Event) {
-    let strategy = (<HTMLSelectElement>$event.target).value;
-    console.log("stateBackend: " + strategy);
-    this.jobConfig.statebackend = strategy;
+  selectStateBackend($event: Event) {
+    let backend = (<HTMLSelectElement>$event.target).value;
+    console.log("stateBackend: " + backend);
+    this.jobConfig.statebackend = backend;
+  }
+
+  enableCheckPoint($event: Event) {
+    let enableValue = (<HTMLSelectElement>$event.target).value;
+    console.log("enableCheckPoint:\t", enableValue);
+    this.jobConfig.enabCk = enableValue;
+  }
+
+  setCKIntervalTimeType($event: Event) {
+    this.jobConfig.checkpoint = (<HTMLSelectElement>$event.target).value;
+  }
+
+  setMinPauBetCKTimeType($event: Event) {
+    this.jobConfig.minPauseBetwCks = (<HTMLSelectElement>$event.target).value;
+  }
+
+  setRestartIntervalTimeType($event: Event) {
+    this.jobConfig.restartIntervalTimTyp = (<HTMLSelectElement>$event.target).value;
+  }
+
+  setFailureDelayIntervalTimeType($event: Event) {
+    this.jobConfig.faiDelIntTimTyp = (<HTMLSelectElement>$event.target).value;
+  }
+
+  setFailureIntervalTimeType($event: Event) {
+    this.jobConfig.failInterTimeType = (<HTMLSelectElement>$event.target).value;
+  }
+
+  setExtCkClean($event: Event) {
+    this.jobConfig.ExteCkClean = (<HTMLSelectElement>$event.target).value;
   }
 }
