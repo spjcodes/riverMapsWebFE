@@ -1,16 +1,60 @@
-<p-fieldset>
-  <ng-template pTemplate="header">
-    <div class="flex align-items-center text-primary">
-      <span class="pi pi-user mr-2"></span>
-      <span class="font-bold text-lg">User Details</span>
-    </div>
+<div class="container">
+  <p-fieldset>
+    <ng-template pTemplate="header">
+      <div class="flex align-items-center text-primary">
+        <span class="pi pi-server mr-3 " style="font-size: 2rem"></span>
+        <span class="font-bold text-lg"> Yarn cluster configuration</span>
+      </div>
 
-  </ng-template>
-  <div>
-      <span class="p-float-label ">
-<!--          <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>-->
-          <p-inputNumber inputId="integeronly" > sfsdfs</p-inputNumber>
-          <label htmlFor="number-input">Number</label>
-      </span>
-  </div>
-</p-fieldset>
+    </ng-template>
+    <div class="container">
+      <form>
+        <div class="mb-3">
+          <label class="col-form-label">clusterName:</label>
+          <input name="jobConfig"  type="text" class="form-control" id="configname-name">
+        </div>
+
+        <!--               resource config -->
+        <div class="mb-3">
+          <label class="col-form-label">jmMemory(M):</label>
+          <input name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">hadoopConfDir:</label>
+          <input name="hadoopConfDir"  type="text" class="form-control" id="hadoopConfDir">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">flinkConfigDir:</label>
+          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">flinkClusterLib:</label>
+          <input name="flinkClusterLib"  type="text" class="form-control" id="flinkClusterLib">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">flinkDistJar:</label>
+          <input name="flinkDistJar"  type="text" class="form-control" id="flinkDistJar">
+        </div>
+
+       <!-- <div class="mb-3">
+          <label class="col-form-label">flinkConfigDir:</label>
+          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">flinkConfigDir:</label>
+          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+        </div>
+
+        <div class="mb-3">
+          <label class="col-form-label">flinkConfigDir:</label>
+          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+        </div>-->
+      </form>
+    </div>
+  </p-fieldset>
+</div>
