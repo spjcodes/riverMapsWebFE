@@ -6,6 +6,7 @@ import {DeploymentComponent} from "./pageComponents/deployment/deployment.compon
 import {UserInfoComponent} from "./pageComponents/user-info/user-info.component";
 import {JobManagerComponent} from "./pageComponents/job-manager/job-manager.component";
 import {DataSyncComponent} from "./pageComponents/DS/data-sync/data-sync.component";
+import {ClusterSettingComponent} from "./pageComponents/setting/cluster-setting/cluster-setting.component";
 
 const routes: Routes = [
   {path:'', component: SqlEditComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'jobManager', component: JobManagerComponent},
   {path:'deployment', component: DeploymentComponent},
   {path:'userInfo', component: UserInfoComponent},
+  {path:'clusterSetting', component: ClusterSettingComponent},
 ];
 
 @NgModule({

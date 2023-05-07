@@ -4,7 +4,9 @@
 @import "~codemirror/theme/zenburn.css";
 @import '~codemirror/addon/hint/show-hint.css';
 @import "~codemirror/addon/search/matchesonscrollbar.css";
-
+@import "~primeng/resources/themes/lara-light-blue/theme.css";
+@import "~primeng/resources/primeng.css";
+@import "~primeicons/primeicons.css";
 
 .padding20 {
   padding-top: 20px;

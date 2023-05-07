@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CatalogManagerComponent } from './pageComponents/catalog-manager/catalog-manager.component';
-import { SqlEditComponent } from './pageComponents/sql-edit/sql-edit.component';
-import { DeploymentComponent } from './pageComponents/deployment/deployment.component';
-import { UserInfoComponent } from './pageComponents/user-info/user-info.component';
+import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service";
-import {HostConfig} from "./config/host-config";
 import {CodemirrorModule} from "@ctrl/ngx-codemirror";
-import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
+import { AppRoutingModule } from './app-routing.module';
+import {HostConfig} from "./config/host-config";
+import { AppComponent } from './app.component';
+import { SqlEditComponent } from './pageComponents/sql-edit/sql-edit.component';
+import { UserInfoComponent } from './pageComponents/user-info/user-info.component';
 import { DataSyncComponent } from './pageComponents/DS/data-sync/data-sync.component';
+import { DeploymentComponent } from './pageComponents/deployment/deployment.component';
+import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service";
+import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
+import { CatalogManagerComponent } from './pageComponents/catalog-manager/catalog-manager.component';
+import { ClusterSettingComponent } from './pageComponents/setting/cluster-setting/cluster-setting.component';
+import {InputNumberModule} from "primeng/inputnumber";
+import {FieldsetModule} from "primeng/fieldset";
 
 
 @NgModule({
@@ -24,14 +28,18 @@ import { DataSyncComponent } from './pageComponents/DS/data-sync/data-sync.compo
     DeploymentComponent,
     UserInfoComponent,
     JobManagerComponent,
-    DataSyncComponent
+    DataSyncComponent,
+    ClusterSettingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CodemirrorModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    InputNumberModule,
+    FieldsetModule,
   ],
   providers: [
     SqlLabServicesService,
