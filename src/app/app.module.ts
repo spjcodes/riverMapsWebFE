@@ -11,7 +11,7 @@ import { UserInfoComponent } from './pageComponents/user-info/user-info.componen
 import {HttpClientModule} from "@angular/common/http";
 import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service";
 import {HostConfig} from "./config/host-config";
-import {CodemirrorModule} from "ng2-codemirror";
+import {CodemirrorModule} from "@ctrl/ngx-codemirror";
 import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
 import { DataSyncComponent } from './pageComponents/DS/data-sync/data-sync.component';
 

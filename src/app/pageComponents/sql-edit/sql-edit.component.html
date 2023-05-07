@@ -255,8 +255,14 @@
 
    <hr/>
 
-    <codemirror [(ngModel)]="this.sqlJobModule.sqlScript" [config]="cmOptions" >
-    </codemirror>
+ <!--   <codemirror [(ngModel)]="this.sqlJobModule.sqlScript" [config]="cmOptions" >
+    </codemirror>-->
+
+    <ngx-codemirror #codemirror
+                    [options]="cmOptions"
+                    [(ngModel)]="this.sqlJobModule.sqlScript"
+                    (ngModelChange)="setEditorContent($event)">
+    </ngx-codemirror>
 
     <hr/>
 
@@ -285,8 +291,13 @@
 
     <hr/>
 
-    <codemirror [(ngModel)]="logContent" [config]="logOptions" *ngIf="this.sqlJobModule.isOutputLog">
-    </codemirror>
+<!--    <codemirror [(ngModel)]="logContent" [options]="logOptions" *ngIf="this.sqlJobModule.isOutputLog">
+    </codemirror>-->
+    <ngx-codemirror  *ngIf="this.sqlJobModule.isOutputLog" #codemirror
+                    [options]="cmOptions"
+                    [(ngModel)]="logContent"
+                    >
+    </ngx-codemirror>
 
   </div>
 </div>

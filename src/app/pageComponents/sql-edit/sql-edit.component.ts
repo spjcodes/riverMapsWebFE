@@ -248,4 +248,8 @@ export class SqlEditComponent implements OnInit {
   setExtCkClean($event: Event) {
     this.jobConfig.ExteCkClean = (<HTMLSelectElement>$event.target).value;
   }
+
+  setEditorContent($event: any) {
+    console.log($event)
+  }
 }
