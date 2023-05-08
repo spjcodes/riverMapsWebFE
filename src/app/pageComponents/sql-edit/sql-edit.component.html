@@ -17,7 +17,7 @@
         <div class="input-group">
           <label class="btn btn-primary disabled">cluster:</label>
           <select class="form-select" id="cluster" (change)="setCluster($event)" >
-            <option *ngFor="let c of this.clusterConfigs.clusterConfigList" value="{{c.clustername}}">{{c.clustername}}</option>
+            <option *ngFor="let c of this.clusterConfigs.clusterConfigList" value="{{c.clusterName}}">{{c.clusterName}}</option>
           </select>
         </div>
       </div>

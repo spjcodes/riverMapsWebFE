@@ -30,12 +30,14 @@ export class SqlEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.jobInit();
+
+    //load clusterConfig list
+    this.clusterConfigInit();
     this.codeMirrorInit();
     this.jobConfig = new JobConfigModel();
   }
 
-  private jobInit() {
+  private clusterConfigInit() {
     this.sqlLabSer.getClusterConfigList().then((clusterConfigs: any) => {
       //load cluster, model, catalog configs
       if (clusterConfigs.status === 200) {
@@ -45,9 +47,9 @@ export class SqlEditComponent implements OnInit {
         alert("load cluster metadata fail. please retry or check backEnd service is health");
       }
 
-  //load jobConfigs
-  this.jobConfigInit();
-    });
+      //load jobConfigs
+      this.jobConfigInit();
+  });
 
     console.dir(this.clusterConfigs)
 

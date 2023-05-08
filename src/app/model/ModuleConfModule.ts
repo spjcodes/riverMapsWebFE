@@ -1,3 +1,3 @@
 export class ModuleConfModule {
-  modulename: string = "";
+  modulename: string | undefined;
 }
