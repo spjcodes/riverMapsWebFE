@@ -16,8 +16,12 @@ import {SqlLabServicesService} from "./services/sqlLab/sql-lab-services.service"
 import { JobManagerComponent } from './pageComponents/job-manager/job-manager.component';
 import { CatalogManagerComponent } from './pageComponents/catalog-manager/catalog-manager.component';
 import { ClusterSettingComponent } from './pageComponents/setting/cluster-setting/cluster-setting.component';
-import {InputNumberModule} from "primeng/inputnumber";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {FieldsetModule} from "primeng/fieldset";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {ToastModule} from "primeng/toast";
+import {MenuModule} from "primeng/menu";
 
 
 @NgModule({
@@ -38,8 +42,13 @@ import {FieldsetModule} from "primeng/fieldset";
     CodemirrorModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    InputNumberModule,
+    ConfirmPopupModule,
+    ConfirmDialogModule,
     FieldsetModule,
+    SplitButtonModule,
+    ToastModule,
+    MenuModule,
+
   ],
   providers: [
     SqlLabServicesService,

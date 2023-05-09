@@ -1,60 +1,76 @@
-<div class="container">
-  <p-fieldset>
-    <ng-template pTemplate="header">
+<div class="container containerCustomer">
+<!--  [model]="this.items" (onClick)="save('info')"-->
+
+  <p-fieldset >
+    <ng-template pTemplate="header" >
       <div class="flex align-items-center text-primary">
         <span class="pi pi-server mr-3 " style="font-size: 2rem"></span>
         <span class="font-bold text-lg"> Yarn cluster configuration</span>
       </div>
-
     </ng-template>
-    <div class="container">
-      <form>
-        <div class="mb-3">
-          <label class="col-form-label">clusterName:</label>
-          <input name="jobConfig"  type="text" class="form-control" id="configname-name">
-        </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      add
+    </button>
+    <!-- Modal -->
+    <div class="modal fade modal-dialog  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">New Cluster Config</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <form>
+                <div class="mb-3">
+                  <label class="col-form-label">clusterName:</label>
+                  <input name="jobConfig"  type="text" class="form-control" id="configname-name">
+                </div>
+                <!--               resource config -->
+                <div class="mb-3">
+                  <label class="col-form-label">jmMemory(M):</label>
+                  <input name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
+                </div>
 
-        <!--               resource config -->
-        <div class="mb-3">
-          <label class="col-form-label">jmMemory(M):</label>
-          <input name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
-        </div>
+                <div class="mb-3">
+                  <label class="col-form-label">hadoopConfDir:</label>
+                  <input name="hadoopConfDir"  type="text" class="form-control" id="hadoopConfDir">
+                </div>
 
-        <div class="mb-3">
-          <label class="col-form-label">hadoopConfDir:</label>
-          <input name="hadoopConfDir"  type="text" class="form-control" id="hadoopConfDir">
-        </div>
+                <div class="mb-3">
+                  <label class="col-form-label">flinkConfigDir:</label>
+                  <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+                </div>
 
-        <div class="mb-3">
-          <label class="col-form-label">flinkConfigDir:</label>
-          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
-        </div>
+                <div class="mb-3">
+                  <label class="col-form-label">flinkClusterLib:</label>
+                  <input name="flinkClusterLib"  type="text" class="form-control" id="flinkClusterLib">
+                </div>
 
-        <div class="mb-3">
-          <label class="col-form-label">flinkClusterLib:</label>
-          <input name="flinkClusterLib"  type="text" class="form-control" id="flinkClusterLib">
-        </div>
+                <div class="mb-3">
+                  <label class="col-form-label">flinkDistJar:</label>
+                  <input name="flinkDistJar"  type="text" class="form-control" id="flinkDistJar">
+                </div>
 
-        <div class="mb-3">
-          <label class="col-form-label">flinkDistJar:</label>
-          <input name="flinkDistJar"  type="text" class="form-control" id="flinkDistJar">
-        </div>
+              </form>
 
-       <!-- <div class="mb-3">
-          <label class="col-form-label">flinkConfigDir:</label>
-          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
-        </div>
+            </div>
 
-        <div class="mb-3">
-          <label class="col-form-label">flinkConfigDir:</label>
-          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">save</button>
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label class="col-form-label">flinkConfigDir:</label>
-          <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
-        </div>-->
-      </form>
+      </div>
     </div>
+
+
+
   </p-fieldset>
+
+
+
+
 </div>
