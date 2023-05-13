@@ -1,6 +1,4 @@
 <div class="container containerCustomer">
-<!--  [model]="this.items" (onClick)="save('info')"-->
-
   <p-fieldset >
     <ng-template pTemplate="header" >
       <div class="flex align-items-center text-primary">
@@ -10,10 +8,11 @@
     </ng-template>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      add
+      <i class="pi pi-plus"></i>
+      <label style="margin-left: 8px">new</label>
     </button>
-    <!-- Modal -->
-    <div class="modal fade modal-dialog  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- cluster configuration Modal -->
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -25,32 +24,50 @@
               <form>
                 <div class="mb-3">
                   <label class="col-form-label">clusterName:</label>
-                  <input name="jobConfig"  type="text" class="form-control" id="configname-name">
+                  <input   [(ngModel)]="clusterConfig.clusterName" name="jobConfig"  type="text" class="form-control" id="configname-name">
                 </div>
                 <!--               resource config -->
                 <div class="mb-3">
-                  <label class="col-form-label">jmMemory(M):</label>
-                  <input name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
+                  <label class="col-form-label">jobManagerMemory(MB):</label>
+                  <input [(ngModel)]="clusterConfig.tmMemory" name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">taskManagerMemory(MB):</label>
+                  <input [(ngModel)]="clusterConfig.tmMemory" name="tmmemory"  type="text" class="form-control" id="tmMemory-name">
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">SlotsPerTaskManager:</label>
+                  <input [(ngModel)]="clusterConfig.slotPreTm" name="tmmemory"  type="text" class="form-control" id="slotsPreTM-name">
                 </div>
 
                 <div class="mb-3">
                   <label class="col-form-label">hadoopConfDir:</label>
-                  <input name="hadoopConfDir"  type="text" class="form-control" id="hadoopConfDir">
+                  <input [(ngModel)]="clusterConfig.hadoopConfDir" name="hadoopConfDir"  type="text" class="form-control" id="hadoopConfDir">
+                </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label">flinkHome:</label>
+                  <input [(ngModel)]="clusterConfig.flinkHome"  (blur)="autoSetFlinkConfAndLib(this.clusterConfig.flinkHome)" name="hadoopConfDir"  type="text" class="form-control" id="flinkHome">
                 </div>
 
                 <div class="mb-3">
                   <label class="col-form-label">flinkConfigDir:</label>
-                  <input name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
+                  <input [(ngModel)]="clusterConfig.flinkConfDir" name="flinkConfDir"  type="text" class="form-control" id="flinkConfigDir">
                 </div>
 
                 <div class="mb-3">
                   <label class="col-form-label">flinkClusterLib:</label>
-                  <input name="flinkClusterLib"  type="text" class="form-control" id="flinkClusterLib">
+                  <input [(ngModel)]="clusterConfig.flinkClusterLib" name="flinkClusterLib"  type="text" class="form-control" id="flinkClusterLib">
                 </div>
 
                 <div class="mb-3">
                   <label class="col-form-label">flinkDistJar:</label>
-                  <input name="flinkDistJar"  type="text" class="form-control" id="flinkDistJar">
+                  <input [(ngModel)]="clusterConfig.flinkDistJar" name="flinkDistJar"  type="text" class="form-control" id="flinkDistJar">
+                </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label">desc:</label>
+                  <textarea [(ngModel)]="clusterConfig.desc" name="flinkDistJar"  type="text" class="form-control" id="desc"></textarea>
                 </div>
 
               </form>
@@ -60,13 +77,49 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">save</button>
+            <button type="button" class="btn btn-primary" (click)="saveClusterInfo()">save</button>
           </div>
         </div>
       </div>
     </div>
 
-
+<!--    config list -->
+    <hr/>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th scope="col">clusterName</th>
+          <th scope="col">hadoopConfDir</th>
+          <th scope="col">jmMemory(MB)</th>
+          <th scope="col">tmMemory(MB)</th>
+          <th scope="col">slotsPreTM</th>
+          <th scope="col">flinkHome</th>
+          <th scope="col">flinkConfigDir</th>
+          <th scope="col">flinkClusterLib</th>
+          <th scope="col">flinkDistJar</th>
+          <th scope="col">desc</th>
+          <th scope="col">operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let configItem of this.clusterConfigList">
+          <th scope="row">{{configItem.clusterName}}</th>
+          <td>{{configItem.hadoopConfDir}}</td>
+          <td>{{configItem.materMemory}}</td>
+          <td>{{configItem.tmMemory}}</td>
+          <td>{{configItem.slotPreTm}}</td>
+          <td>{{configItem.flinkHome}}</td>
+          <td>{{configItem.flinkConfDir}}</td>
+          <td>{{configItem.flinkClusterLib}}</td>
+          <td>{{configItem.flinkDistJar}}</td>
+          <td>{{configItem.desc}}</td>
+          <td>
+            <i class="pi pi-file-edit btn-warning"  style="margin-left: 12px; color: orange"> </i>
+            <i class="pi pi-trash " style="margin-left: 12px; color: red"> </i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
   </p-fieldset>
 
