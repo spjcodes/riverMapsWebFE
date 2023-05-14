@@ -23,7 +23,6 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {ToastModule} from "primeng/toast";
 import {MenuModule} from "primeng/menu";
 
-
 @NgModule({
   declarations: [
     AppComponent,

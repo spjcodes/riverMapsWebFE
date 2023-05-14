@@ -7,13 +7,15 @@ export class JobConfigModel {
   //AT_LEAST_ONCE
   ckMode: string = "EXACTLY_ONCE";
 
-  ckdir: string = "";
+  // ckdir: string = "";
 
   ckinterval: number = 50000;
 
   ckTimeout: number = 2000;
 
   minPauseBetwCks: number = 2000;
+
+  minPauseBetwCksTimeType: number = 2000;
 
   ExteCkClean: string = "RETAIN_ON_CANCELLATION";
 

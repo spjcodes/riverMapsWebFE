@@ -141,10 +141,15 @@
                  </select>
                </div>
 
-              <div class="mb-3">
+<!--              <div class="mb-3">
                 <label class="col-form-label">ckDir:</label>
                 <input name="ckdir" [(ngModel)]="this.jobConfig.ckdir" type="text" class="form-control" id="ckdir-name">
-              </div>
+              </div>-->
+
+               <div class="mb-3">
+                 <label class="col-form-label">savePointDir:</label>
+                 <input name="savepoint" [(ngModel)]="this.jobConfig.savepoint" type="text" class="form-control" id="savepoint-name">
+               </div>
 
                <div class="mb-3" style="display: inline-block">
                  <label class="col-form-label" style="width:35%; float:left"  >minPauseBetweenCheckpoints:</label>
@@ -196,7 +201,7 @@
 
                <div class="mb-3" style="display: inline-block">
                  <label class="col-form-label" style="width:25%; float:left"  >failureDelayInterval:</label>
-                 <input [(ngModel)]="this.jobConfig.faiDelInt" class="form-control"  name="faiDelInt" style="float:left; width:15%; margin-right: 5%;" id="faiDelInt-text">
+                 <input [(ngModel)]="this.jobConfig.failureDelayInterval" class="form-control"  name="faiDelInt" style="float:left; width:15%; margin-right: 5%;" id="faiDelInt-text">
 
                  <label class="form-check-inline col-form-label" style="float:left; width:12%;" >TimeType:</label>
                  <select class="form-select form-check-inline" style="float:left; width:20%" (change)="setFailureDelayIntervalTimeType($event)">

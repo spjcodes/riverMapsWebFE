@@ -193,7 +193,6 @@ export class SqlEditComponent implements OnInit {
   }
 
   addJobConfig(jobConfig: JobConfigModel) {
-    this.jobConfigMap.set(jobConfig.configName, jobConfig);
     this.sqlLabSer.addJobConfig(jobConfig).then((result: any) => {
       if (result.statusCode != 200) {
         alert("addJobConfig failed! cause by: " + result.desc);
@@ -210,9 +209,9 @@ export class SqlEditComponent implements OnInit {
   }
 
   selectRestartStrategy($event: Event) {
-    let restartstrategy = (<HTMLSelectElement>$event.target).value;
-    console.log("RestartStrategy: " + restartstrategy);
-    this.jobConfig.restartstrategy = restartstrategy;
+    let restartStrategy = (<HTMLSelectElement>$event.target).value;
+    console.log("RestartStrategy: " + restartStrategy);
+    this.jobConfig.restartstrategy = restartStrategy;
   }
 
   selectStateBackend($event: Event) {
@@ -224,7 +223,7 @@ export class SqlEditComponent implements OnInit {
   enableCheckPoint($event: Event) {
     let enableValue = (<HTMLSelectElement>$event.target).value;
     console.log("enableCheckPoint:\t", enableValue);
-    this.jobConfig.enabCk = enableValue;
+    this.jobConfig.enabCk = enableValue == "enable" ? 1 : 0;
   }
 
   setCKIntervalTimeType($event: Event) {
@@ -232,7 +231,7 @@ export class SqlEditComponent implements OnInit {
   }
 
   setMinPauBetCKTimeType($event: Event) {
-    this.jobConfig.minPauseBetwCks = (<HTMLSelectElement>$event.target).value;
+    this.jobConfig.minPauseBetwCksTimeType = (<HTMLSelectElement>$event.target).value;
   }
 
   setRestartIntervalTimeType($event: Event) {

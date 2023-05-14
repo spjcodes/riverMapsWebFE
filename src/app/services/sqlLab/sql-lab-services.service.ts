@@ -16,7 +16,33 @@ export class SqlLabServicesService {
 
     const p = {
       "jobName": sqlJobModel.jobName,
-      "configuration": sqlJobModel.configuration,
+      "configuration": {
+        "configName": sqlJobModel.configuration.configName,
+        "enableCheckpoint": sqlJobModel.configuration.enabCk,
+        // "checkpointDir": jobConfig.ckdir,
+        "checkpointInterval": sqlJobModel.configuration.ckinterval,
+        "checkpointTimeout": sqlJobModel.configuration.ckTimeout,
+        "checkpointingMode": sqlJobModel.configuration.ckMode,
+        "minPauseBetweenCheckpoints": sqlJobModel.configuration.minPauseBetwCks,
+        // "delayInterval": jobConfig.dalyinterval,
+        "parallelism_default": sqlJobModel.configuration.defaultparallel,
+        "failureNum": sqlJobModel.configuration.failureNum,
+        "failureDelayInterval": sqlJobModel.configuration.faiDelInt,
+        "failureDelayIntervalTimeType": sqlJobModel.configuration.faiDelIntTimTyp,
+        "failureRate": sqlJobModel.configuration.failurerate,
+        "taskmanager_memory_process_size": sqlJobModel.configuration.tmmemory,
+        "jobmanager_memory_process_size": sqlJobModel.configuration.jmmemory,
+        "taskmanager_numberOfTaskSlots": sqlJobModel.configuration.tmnumslots,
+        "restartattempts": sqlJobModel.configuration.restartattempts,
+        "restartInterval": sqlJobModel.configuration.restartinterval,
+        "restartIntervalTimeType": sqlJobModel.configuration.restartIntervalTimTyp,
+        "restartStrategy": sqlJobModel.configuration.restartstrategy,
+        "savePointDir": sqlJobModel.configuration.savepoint,
+        "stateBackend": sqlJobModel.configuration.statebackend,
+        "stateBackendPath": sqlJobModel.configuration.statebackendPath,
+        "externalizedCheckpointCleanup": sqlJobModel.configuration.ExteCkClean,
+        "describe": sqlJobModel.configuration.descr
+      },
       "jobType": sqlJobModel.jobType,
       "cluster": sqlJobModel.cluster,
       "dataBase": sqlJobModel.dataBase,
@@ -24,10 +50,12 @@ export class SqlLabServicesService {
       "isOutputLog": sqlJobModel.isOutputLog,
       "sqlScript": sqlJobModel.sqlScript
     };
-
+    console.log("original jobConfig is: ");
+    console.dir(sqlJobModel.configuration);
+    console.debug("--------------------------- executor jobModel -----------------------------------------");
     console.dir(sqlJobModel);
-    // return this.httpClient.post("http://localhost:8080/" + this.executorSqlJobURL, p).toPromise();
-    return this.httpClient.post(this.hostConfig.getSqlLabUrl() + this.executorSqlJobURL, sqlJobModel).toPromise();
+    console.debug("---------------------------------------------------------------------------------------");
+    return this.httpClient.post(this.hostConfig.getSqlLabUrl() + this.executorSqlJobURL, p).toPromise();
 
   }
 
@@ -44,26 +72,10 @@ export class SqlLabServicesService {
 
   private addJobConfigURL = "addJobConfig"
   addJobConfig(jobConfig: JobConfigModel) {
-   /* let p = {
-      "ckdir": jobConfig.ckdir,
-      "ckinterval": jobConfig.ckinterval,
-      "configname": jobConfig.configName,
-      "dalyinterval": jobConfig.dalyinterval,
-      "defaultparallel": jobConfig.defaultparallel,
-      "failureinterval": jobConfig.failureinterval,
-      "failurerate": jobConfig.failurerate,
-      "jmmemory": jobConfig.jmmemory,
-      "restartattempts": jobConfig.restartattempts,
-      "restartinterval": jobConfig.restartinterval,
-      "restartstrategy": jobConfig.restartstrategy,
-      "savepoint": jobConfig.savepoint,
-      "statebackend": jobConfig.statebackend,
-      "tmnumslots": jobConfig.tmnumslots
-    }*/
     let p = {
       "configName": jobConfig.configName,
       "enableCheckpoint": jobConfig.enabCk,
-      "checkpointDir": jobConfig.ckdir,
+      // "checkpointDir": jobConfig.ckdir,
       "checkpointInterval": jobConfig.ckinterval,
       "checkpointTimeout": jobConfig.ckTimeout,
       "checkpointingMode": jobConfig.ckMode,
@@ -87,6 +99,7 @@ export class SqlLabServicesService {
       "externalizedCheckpointCleanup": jobConfig.ExteCkClean,
       "describe": jobConfig.descr
     }
+    console.debug(p)
     return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.addJobConfigURL, p).toPromise();
 
   }
