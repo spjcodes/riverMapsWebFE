@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/hint/sql-hint.js';
 import * as CodeMirror from "codemirror";
@@ -8,7 +8,7 @@ import {SqlLabServicesService} from "../../services/sqlLab/sql-lab-services.serv
 import {SqlJobModel} from "../../model/sql-job-model";
 import {ClusterConfigs} from "../../model/clusterConfigs";
 import {JobConfigModel} from "../../model/jobConfigModel";
-
+import {CodemirrorComponent} from "@ctrl/ngx-codemirror";
 
 @Component({
   selector: 'app-sql-edit',
@@ -17,6 +17,9 @@ import {JobConfigModel} from "../../model/jobConfigModel";
 })
 export class SqlEditComponent implements OnInit {
 
+  @ViewChild('#cmEdit') codemirror: CodemirrorComponent | undefined;
+
+  positionDiff: any;
   cmOptions: any;
   logContent: any;
   logOptions: any;
@@ -25,8 +28,9 @@ export class SqlEditComponent implements OnInit {
   jobConfigMap: Map<String, JobConfigModel> = new Map<String, JobConfigModel>();
   clusterConfigs: ClusterConfigs = new ClusterConfigs();
   jobConfigList: Array<Map<String, String>> = [];
+  fullscreen: boolean = false;
 
-  constructor(private sqlLabSer: SqlLabServicesService) {
+  constructor(private sqlLabSer: SqlLabServicesService, private renderer: Renderer2) {
   }
 
   ngOnInit(): void {
@@ -69,6 +73,7 @@ export class SqlEditComponent implements OnInit {
   }
 
   private codeMirrorInit() {
+
     this.sqlJobModule.sqlScript = "o_< enjoy you sql tour... ";
     this.cmOptions = {
       /* mode: "text/x-mysql",
@@ -84,7 +89,37 @@ export class SqlEditComponent implements OnInit {
        smartIndent: true,
        indentUnit: 4,  // 缩进单位为4
        extraKeys: { Ctrl: "autocomplete" }, //避免热键冲突*/
-      mode: 'text/x-mysql',//选择对应代码编辑器的语言，我这边选的是数据库，根据个人情况自行设置即可
+      // 开启全屏功能
+      fullScreen: true,
+      // 添加自定义的全屏样式
+      extraKeys: {
+        'F11': (cm: any) => {
+          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)");
+          let cmEditScrol = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
+
+          console.log("f11")
+          if(cmEdit) {
+           cmEdit.style.height = "800px";
+            // cmEditScrol.style.height = this.positionDiff;
+            /* cmEdit.classList.add("ngx-codemirror-fullscreen");
+           console.log(cmEdit.style.height)*/
+            console.dir(cmEdit.style.height)
+          }
+          cm.setOption('fullScreen', !cm.getOption('fullScreen'));
+        },
+        'Esc': (cm: any) => {
+          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)");
+          console.dir("esc")
+          if(cmEdit) {
+            cmEdit.style.height = "500px"
+            cmEdit.classList.remove("ngx-codemirror-fullscreen");
+          }
+          if (cm.getOption('fullScreen')) {
+            cm.setOption('fullScreen', false);
+          }
+        }
+      },
+      mode: 'text/x-mysql',//选择对应代码编辑器的语言
       smartIndent: true,
       indentUnit: 4,
       autoRefresh: true,
@@ -132,6 +167,20 @@ export class SqlEditComponent implements OnInit {
       matchBrackets: true,	//括号匹配
       styleActiveLine: true
     };
+  }
+
+  toggleFullScreen() {
+    this.fullscreen = !this.fullscreen;
+    const element = document.querySelector('.ngx-codemirror');
+    if (element) {
+      if (this.fullscreen) {
+        console.log("set fullscreen")
+        element.classList.add('ngx-codemirror-fullscreen');
+      } else {
+        console.log("close fullscreen")
+        element.classList.remove('ngx-codemirror-fullscreen');
+      }
+    }
   }
 
   executorSql(jobModel: SqlJobModel) {
@@ -252,5 +301,36 @@ export class SqlEditComponent implements OnInit {
 
   setEditorContent($event: any) {
     console.log($event)
+    if (this.codemirror) {
+    }
+  }
+
+
+  onResize(event: MouseEvent) {
+    let diff = this.positionDiff;
+    const container = (event.target as HTMLElement).parentNode as HTMLElement;
+    let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)");
+    const startY = event.clientY;
+    const startHeight = container['offsetHeight'];
+    let startHeightCm = cmEdit['offsetHeight'];
+    const onMouseMove = (event: { clientY: number; }) => {
+      diff = event.clientY - startY;
+      container['style'].height = startHeight + diff + 'px';
+      cmEdit['style'].height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)"))['style'].height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = startHeightCm + diff + "px";
+    };
+
+    const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      cmEdit.style.height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)"))['style'].height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = startHeightCm + diff + "px";
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    this.positionDiff = diff;
   }
 }

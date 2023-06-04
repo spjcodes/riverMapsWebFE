@@ -1,1 +1,8 @@
-<p>catlog worker space</p>
+<div class="parent">
+  <div id="sqlCode" class="child">
+    <ngx-codemirror   id="ngxCmEdit"  #codemirror
+                     [options]="cmOptions"
+                     [(ngModel)]="logContent">
+    </ngx-codemirror>
+  </div>
+</div>

@@ -20,3 +20,11 @@
   margin-right:10px;
 }
 
+.CodeMirror {
+  font-family: monospace;
+  height: auto;
+  min-height: 500px;
+  max-height: 2160px;
+  color: black;
+  direction: ltr;
+}

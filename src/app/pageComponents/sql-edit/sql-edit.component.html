@@ -1,7 +1,7 @@
 <div class="card containerCustomer margin24">
   <h4 class="card-header">sqlLab</h4>
 
-  <div class="card-body">
+  <div class="card-body" style="height: 100%">
 
     <div class="row padding20">
 
@@ -49,12 +49,16 @@
               edit...
             </option>
           </select>
+          <button [ngStyle]="{backgroundColor:'var(--blue-400)', color: 'var(--gray-50)' }"  class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+            <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+          </button>
         </div>
       </div>
 
 
+
       <!-- config flink job -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal"  data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel"   aria-hidden="true">
 
         <div class="modal-dialog modal-lg">
 
@@ -97,7 +101,7 @@
 
                <div class="mb-3">
                  <label class="col-form-label">tmSlots:</label>
-                 <input name="tmnumslots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmnumslots-text">
+                 <input name="tmSlots" [(ngModel)]="this.jobConfig.tmnumslots" class="form-control" id="tmSlots-text">
                </div>
 
                <div class="mb-3">
@@ -240,7 +244,7 @@
 <!--          config file desc -->
               <div class="mb-3">
                 <label class="col-form-label">desc:</label>
-                <textarea name="tmnumslots"  [(ngModel)]="this.jobConfig.descr" class="form-control" id="descr-text"></textarea>
+                <textarea name="desc"  [(ngModel)]="this.jobConfig.descr" class="form-control" id="descr-text"></textarea>
               </div>
 
             </form>
@@ -260,49 +264,57 @@
 
    <hr/>
 
- <!--   <codemirror [(ngModel)]="this.sqlJobModule.sqlScript" [config]="cmOptions" >
-    </codemirror>-->
+    <div class="sqlContainer">
+        <!--   <codemirror [(ngModel)]="this.sqlJobModule.sqlScript" [config]="cmOptions" >
+   </codemirror>-->
+        <!--    <button (click)="toggleFullScreen()">全屏</button>-->
+        <div  class="panel" id="sqlCode">
+          <ngx-codemirror  id="cmEdit" #codemirror
+                          [options]="cmOptions"
+                          [(ngModel)]="this.sqlJobModule.sqlScript"
+                          (ngModelChange)="setEditorContent($event)">
+          </ngx-codemirror>
+        </div>
+      <div class="resizer" (mousedown)="onResize($event)"></div>
+      <div class="panel" #panel2>
 
-    <ngx-codemirror #codemirror
-                    [options]="cmOptions"
-                    [(ngModel)]="this.sqlJobModule.sqlScript"
-                    (ngModelChange)="setEditorContent($event)">
-    </ngx-codemirror>
+        <hr/>
 
-    <hr/>
+        <div class="form-check form-switch">
+          <ul id="jobConfigSwitch">
+            <li >
+              <input (click)="isOutput(this.sqlJobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
+            </li>
 
-    <div class="form-check form-switch">
+          </ul>
+        </div>
 
-      <ul id="jobConfigSwitch">
-        <li >
-          <input (click)="isOutput(this.sqlJobModule.isOutputLog)" checked class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-          <label class="form-check-label" for="flexSwitchCheckDefault">outputLog</label>
-        </li>
+        <hr style="border: 1px dotted green"/>
 
-      </ul>
+        <div>
 
+
+          <button  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(this.sqlJobModule)">executor</button>
+
+          <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
+
+        </div>
+
+        <hr/>
+
+        <!--    <codemirror [(ngModel)]="logContent" [options]="logOptions" *ngIf="this.sqlJobModule.isOutputLog">
+            </codemirror>-->
+        <ngx-codemirror  *ngIf="this.sqlJobModule.isOutputLog"
+                         [options]="cmOptions"
+                         [(ngModel)]="logContent">
+        </ngx-codemirror>
+
+      </div>
     </div>
 
-    <hr style="border: 1px dotted green"/>
-
-    <div class="">
 
 
-      <button  style="margin: 20px;"  class="btn btn-success" (click)="executorSql(this.sqlJobModule)">executor</button>
-
-      <a  style="margin: 20px;"  class="btn btn-warning">stop</a>
-
-    </div>
-
-    <hr/>
-
-<!--    <codemirror [(ngModel)]="logContent" [options]="logOptions" *ngIf="this.sqlJobModule.isOutputLog">
-    </codemirror>-->
-    <ngx-codemirror  *ngIf="this.sqlJobModule.isOutputLog" #codemirror
-                    [options]="cmOptions"
-                    [(ngModel)]="logContent"
-                    >
-    </ngx-codemirror>
 
   </div>
 </div>

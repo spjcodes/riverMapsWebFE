@@ -99,7 +99,7 @@ export class SqlLabServicesService {
       "externalizedCheckpointCleanup": jobConfig.ExteCkClean,
       "describe": jobConfig.descr
     }
-    console.debug(p)
+    console.debug("save 2 backend: " + p)
     return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.addJobConfigURL, p).toPromise();
 
   }
