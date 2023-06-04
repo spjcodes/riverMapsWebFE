@@ -97,7 +97,10 @@ export class SqlEditComponent implements OnInit {
           let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
           console.log("f11")
           if(cmEdit) {
-           cmEdit.style.height = "800px";
+            let height = "800px";
+            cmEdit.style.height = height;
+          /*  (<HTMLElement>document.querySelector("#sqlCode"))['style'].height = height;
+            (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = height;*/
           }
           cm.setOption('fullScreen', !cm.getOption('fullScreen'));
         },
@@ -105,8 +108,10 @@ export class SqlEditComponent implements OnInit {
           let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
           console.dir("esc")
           if(cmEdit) {
-            cmEdit.style.height = "500px";
-            // (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = String((<HTMLElement>cmEdit.parentNode)['offsetHeight']);
+            let height = "500px";
+            cmEdit.style.height = height;
+          /*  (<HTMLElement>document.querySelector("#sqlCode"))['style'].height = height;
+            (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = height;*/
             cmEdit.classList.remove("ngx-codemirror-fullscreen");
           }
           if (cm.getOption('fullScreen')) {
@@ -320,6 +325,7 @@ export class SqlEditComponent implements OnInit {
       cmEdit['style'].height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)"))['style'].height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)"))['style'].height = startHeightCm + diff + "px";
       console.log("set codemirror: " + startHeightCm + diff + "px");
     };
 
@@ -329,6 +335,7 @@ export class SqlEditComponent implements OnInit {
       cmEdit.style.height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)"))['style'].height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = startHeightCm + diff + "px";
+      (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)"))['style'].height = startHeightCm + diff + "px";
     };
 
     document.addEventListener('mousemove', onMouseMove);
