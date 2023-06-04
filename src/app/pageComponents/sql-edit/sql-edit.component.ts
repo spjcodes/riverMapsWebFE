@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import 'codemirror/mode/sql/sql.js';
 import 'codemirror/addon/hint/sql-hint.js';
 import * as CodeMirror from "codemirror";
@@ -30,7 +30,7 @@ export class SqlEditComponent implements OnInit {
   jobConfigList: Array<Map<String, String>> = [];
   fullscreen: boolean = false;
 
-  constructor(private sqlLabSer: SqlLabServicesService, private renderer: Renderer2) {
+  constructor(private sqlLabSer: SqlLabServicesService, private renderer: Renderer2, private elementRef: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -94,24 +94,19 @@ export class SqlEditComponent implements OnInit {
       // 添加自定义的全屏样式
       extraKeys: {
         'F11': (cm: any) => {
-          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)");
-          let cmEditScrol = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
-
+          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
           console.log("f11")
           if(cmEdit) {
            cmEdit.style.height = "800px";
-            // cmEditScrol.style.height = this.positionDiff;
-            /* cmEdit.classList.add("ngx-codemirror-fullscreen");
-           console.log(cmEdit.style.height)*/
-            console.dir(cmEdit.style.height)
           }
           cm.setOption('fullScreen', !cm.getOption('fullScreen'));
         },
         'Esc': (cm: any) => {
-          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2)");
+          let cmEdit = <HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
           console.dir("esc")
           if(cmEdit) {
-            cmEdit.style.height = "500px"
+            cmEdit.style.height = "500px";
+            // (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = String((<HTMLElement>cmEdit.parentNode)['offsetHeight']);
             cmEdit.classList.remove("ngx-codemirror-fullscreen");
           }
           if (cm.getOption('fullScreen')) {
@@ -300,9 +295,15 @@ export class SqlEditComponent implements OnInit {
   }
 
   setEditorContent($event: any) {
-    console.log($event)
-    if (this.codemirror) {
+    // console.log($event)
+    // if (this.codemirror) {
+      const cmEditScroll = this.elementRef.nativeElement.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)");
+    if (cmEditScroll.offsetHeight > 2160) {
+      cmEditScroll['style'].height = "2160px";
+      console.log("set height: 2160px")
     }
+
+    // }
   }
 
 
@@ -319,6 +320,7 @@ export class SqlEditComponent implements OnInit {
       cmEdit['style'].height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector("#cmEdit > div:nth-child(2) > div:nth-child(6)"))['style'].height = startHeightCm + diff + "px";
       (<HTMLElement>document.querySelector(".CodeMirror"))['style'].height = startHeightCm + diff + "px";
+      console.log("set codemirror: " + startHeightCm + diff + "px");
     };
 
     const onMouseUp = () => {
