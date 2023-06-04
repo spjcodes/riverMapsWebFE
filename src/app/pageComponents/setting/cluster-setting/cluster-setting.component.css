@@ -1,1 +1,6 @@
-
+i:hover {
+  cursor: pointer;
+  color: hsl(40, 100%, 70%);
+  filter: brightness(1.2);
+  transform: scale(1.2);
+}

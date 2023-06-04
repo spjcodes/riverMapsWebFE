@@ -1,4 +1,4 @@
-<div >
+<div class="container-fluid margin10" style="width: 85%">
   <p-fieldset [style.width.%]="60">
     <ng-template pTemplate="header" >
       <div class="flex align-items-center text-primary">
@@ -7,7 +7,7 @@
       </div>
     </ng-template>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button (click)="newConfig()" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="pi pi-plus"></i>
       <label style="margin-left: 8px">new</label>
     </button>
@@ -29,15 +29,15 @@
                 <!--               resource config -->
                 <div class="mb-3">
                   <label class="col-form-label">jobManagerMemory(MB):</label>
-                  <input [(ngModel)]="clusterConfig.tmMemory" name="tmmemory"  type="text" class="form-control" id="jmmemory-name">
+                  <input [(ngModel)]="clusterConfig.materMemory" name="materMemory"  type="text" class="form-control" id="jmmemory-name">
                 </div>
                 <div class="mb-3">
                   <label class="col-form-label">taskManagerMemory(MB):</label>
-                  <input [(ngModel)]="clusterConfig.tmMemory" name="tmmemory"  type="text" class="form-control" id="tmMemory-name">
+                  <input [(ngModel)]="clusterConfig.tmMemory" name="tmMemory"  type="text" class="form-control" id="tmMemory-name">
                 </div>
                 <div class="mb-3">
                   <label class="col-form-label">SlotsPerTaskManager:</label>
-                  <input [(ngModel)]="clusterConfig.slotPreTm" name="tmmemory"  type="text" class="form-control" id="slotsPreTM-name">
+                  <input [(ngModel)]="clusterConfig.slotPreTm" name="slotPreTm"  type="text" class="form-control" id="slotsPreTM-name">
                 </div>
 
                 <div class="mb-3">
@@ -102,7 +102,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let configItem of this.clusterConfigList">
+        <tr *ngFor="let configItem of this.getClusterConfigList">
           <th scope="row">{{configItem.clusterName}}</th>
           <td>{{configItem.hadoopConfDir}}</td>
           <td>{{configItem.materMemory}}</td>
@@ -114,7 +114,7 @@
           <td>{{configItem.flinkDistJar}}</td>
           <td>{{configItem.desc}}</td>
           <td>
-            <i class="pi pi-file-edit btn-warning"  style="margin-left: 12px; color: orange"> </i>
+            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editClusterConfig(configItem.clusterName)" class="pi pi-file-edit btn-warning" data-bs-target="#staticBackdrop"  style="margin-left: 12px; color: orange"> </i>
             <i class="pi pi-trash " style="margin-left: 12px; color: red"> </i>
           </td>
         </tr>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ClusterConfigModule} from "../../../model/ClusterConfigModule";
 import {ClusterServicesService} from "../../../services/cluseterService/cluster-services.service";
+import {waitForAsync} from "@angular/core/testing";
 
 @Component({
   selector: 'app-cluster-setting',
@@ -9,20 +10,31 @@ import {ClusterServicesService} from "../../../services/cluseterService/cluster-
   styleUrls: ['./cluster-setting.component.css'],
   providers: [ConfirmationService, MessageService]
 })
-export class ClusterSettingComponent implements OnInit {
+export class ClusterSettingComponent implements OnInit, AfterContentInit {
 
   clusterConfig: ClusterConfigModule = new ClusterConfigModule();
-  clusterConfigList: Array<ClusterConfigModule> = [];
+  // clusterConfigList: Array<ClusterConfigModule> = [];
+  clusterConfigMap: Map<String, ClusterConfigModule> = new Map<String, ClusterConfigModule>();
+
   constructor(private clusterServices: ClusterServicesService) {
   }
 
+
+
   ngOnInit(): void {
-      this.initClusterList();
+    this.initClusterList()
+  }
+
+  ngAfterContentInit(): void {
+    // setTimeout(() => this.initClusterList(), 0)
+  }
+
+  get getClusterConfigList():  IterableIterator<ClusterConfigModule> {
+    return this.clusterConfigMap.values();
   }
 
   saveClusterInfo() {
     this.clusterServices.addClusterConfig(this.clusterConfig).then((result: any) => {
-
     })
   }
 
@@ -40,9 +52,21 @@ export class ClusterSettingComponent implements OnInit {
   }
 
   private initClusterList() {
-    this.clusterServices.getClusterList().then((result: any) => {
+    this.clusterServices.getClusterList().subscribe((result: any) => {
       console.log(result)
-      this.clusterConfigList = result.result;
+      // this.clusterConfigList = result.result;
+      result.result
+        .forEach((e: ClusterConfigModule) => this.clusterConfigMap.set(e.clusterName, e))
     })
+  }
+
+  editClusterConfig(clusterName: String) {
+    // @ts-ignore
+    this.clusterConfig = this.clusterConfigMap.get(clusterName);
+    console.dir(this.clusterConfig);
+  }
+
+  newConfig() {
+    this.clusterConfig = new ClusterConfigModule();
   }
 }

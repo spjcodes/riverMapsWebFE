@@ -31,6 +31,7 @@ export class ClusterServicesService {
 
   private getClusterListURL = "getYarnClusterConfigs";
   getClusterList() {
-    return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterListURL).toPromise();
+    // return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterListURL).toPromise();
+    return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterListURL);
   }
 }
