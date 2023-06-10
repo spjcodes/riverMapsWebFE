@@ -15,7 +15,7 @@ export class ClusterServicesService {
   addClusterConfig(clusterConfig: ClusterConfigModule) {
     let p = {
       "clusterName" : clusterConfig.clusterName,
-      "address" : "",
+      // "address" : "",
       "hadoopConfDir" : clusterConfig.hadoopConfDir,
       "flinkHome": clusterConfig.flinkHome,
       "flinkConfDir" : clusterConfig.flinkConfDir,

@@ -1,8 +1,10 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ClusterConfigModule} from "../../../model/ClusterConfigModule";
 import {ClusterServicesService} from "../../../services/cluseterService/cluster-services.service";
-import {waitForAsync} from "@angular/core/testing";
+import {ResultModel} from "../../../model/ResultModel";
+import {ResponseEnums} from "../../../enum/ResponseEnums";
+import {delay, of} from "rxjs";
 
 @Component({
   selector: 'app-cluster-setting',
@@ -16,14 +18,19 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
   // clusterConfigList: Array<ClusterConfigModule> = [];
   clusterConfigMap: Map<String, ClusterConfigModule> = new Map<String, ClusterConfigModule>();
 
-  constructor(private clusterServices: ClusterServicesService) {
+  // private statusCode: ResponseEnums;
+
+  constructor(private clusterServices: ClusterServicesService,   private messageService: MessageService) {
   }
 
+  // @ViewChild('editCloseBtn', { static: false }) closeEditBtn: ElementRef;
+  @ViewChild('editCloseBtn', { static: false }) closeEditBtn!: ElementRef;
 
+  @ViewChild('teess', {static: false}) toatet!: ElementRef;
 
   ngOnInit(): void {
     this.initClusterList()
-  }
+ }
 
   ngAfterContentInit(): void {
     // setTimeout(() => this.initClusterList(), 0)
@@ -35,6 +42,18 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
 
   saveClusterInfo() {
     this.clusterServices.addClusterConfig(this.clusterConfig).then((result: any) => {
+      let result1: ResultModel = <ResultModel> result;
+      if (result1.statusCode != ResponseEnums.OK) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'errorCode: ' + result1.statusCode +"\nerrorMsg: " + result1.result });
+      } else {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' })
+        of(null)
+          .pipe(
+            delay(800)
+          ).subscribe(() => {
+            this.closeEditBtn.nativeElement.click();
+        })
+      }
     })
   }
 
@@ -69,4 +88,5 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
   newConfig() {
     this.clusterConfig = new ClusterConfigModule();
   }
+
 }
