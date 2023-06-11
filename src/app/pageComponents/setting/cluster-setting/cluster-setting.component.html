@@ -1,11 +1,15 @@
 <div class="container-fluid margin10" style="width: 85%">
+
   <p-fieldset [style.width.%]="60">
+    <p-toast class="p-toast-top-center"></p-toast>
+
     <ng-template pTemplate="header" >
       <div class="flex align-items-center text-primary">
         <span class="pi pi-server mr-3 " style="font-size: 2rem"></span>
         <span class="font-bold text-lg"> Yarn cluster configuration</span>
       </div>
     </ng-template>
+
     <!-- Button trigger modal -->
     <button (click)="newConfig()" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
       <i class="pi pi-plus"></i>
@@ -16,7 +20,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">New Yarn Cluster Config</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Yarn Cluster Config</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -73,9 +77,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button #editCloseBtn pButton type="button" class="p-button-secondary" data-bs-dismiss="modal">Close</button>
+            <button #editCloseBtn pButton style="margin-right: 8px" type="button" class="p-button-secondary" data-bs-dismiss="modal">Close</button>
 <!--            <button type="button" class="btn btn-primary" (click)="saveClusterInfo()">save</button>-->
-            <p-toast class="p-toast-top-center"></p-toast>
             <button type="button" pButton pRipple (click)="saveClusterInfo()" label="Success" class="p-button-info"></button>
           </div>
         </div>
@@ -114,9 +117,10 @@
           <td>{{configItem.desc}}</td>
           <td>
 <!--            edit yarnClusterConfig-->
-            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editClusterConfig(configItem.clusterName)" class="pi pi-file-edit btn-warning" data-bs-target="#staticBackdrop"  style="margin-left: 12px; color: orange"> </i>
+            <i [ngStyle]="{color: 'var(--primary-color)'}" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editClusterConfig(configItem.clusterName)" class="pi pi-file-edit btn-warning" data-bs-target="#staticBackdrop"  style="margin-left: 12px; color: orange; font-size: 1.3rem"> </i>
 <!--            delete yarn cluster configuration-->
-            <i class="pi pi-trash " style="margin-left: 12px; color: red"> </i>
+
+            <i class="pi pi-trash " style="margin-left: 12px; color: red; font-size: 1.3rem" (click)="deleteByName(configItem.clusterName)"> </i>
           </td>
         </tr>
         </tbody>

@@ -34,4 +34,13 @@ export class ClusterServicesService {
     // return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterListURL).toPromise();
     return this.httpClient.get(this.hostConfig.getMetadataUrl() + this.getClusterListURL);
   }
+
+  private deleteByNameURL = "deleteClusterConfigByName";
+  deleteByName(clusterName: string) {
+    let p = {
+      "clusterName": clusterName
+    }
+
+    return this.httpClient.post(this.hostConfig.getMetadataUrl() + this.deleteByNameURL, p);
+  }
 }

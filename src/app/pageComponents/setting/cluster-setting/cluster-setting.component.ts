@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ClusterConfigModule} from "../../../model/ClusterConfigModule";
 import {ClusterServicesService} from "../../../services/cluseterService/cluster-services.service";
@@ -46,11 +46,14 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
       if (result1.statusCode != ResponseEnums.OK) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'errorCode: ' + result1.statusCode +"\nerrorMsg: " + result1.result });
       } else {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' })
+        this.clusterConfigMap.set(this.clusterConfig.clusterName, this.clusterConfig);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'add config item successful' });
         of(null)
           .pipe(
             delay(800)
-          ).subscribe(() => {
+
+
+      ).subscribe(() => {
             this.closeEditBtn.nativeElement.click();
         })
       }
@@ -71,12 +74,13 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
   }
 
   private initClusterList() {
-    this.clusterServices.getClusterList().subscribe((result: any) => {
-      console.log(result)
-      // this.clusterConfigList = result.result;
-      result.result
-        .forEach((e: ClusterConfigModule) => this.clusterConfigMap.set(e.clusterName, e))
-    })
+    this.clusterServices
+      .getClusterList()
+      .subscribe((result: any) => {
+        console.log(result)
+        result.result
+          .forEach((e: ClusterConfigModule) => this.clusterConfigMap.set(e.clusterName, e))
+      })
   }
 
   editClusterConfig(clusterName: String) {
@@ -89,4 +93,38 @@ export class ClusterSettingComponent implements OnInit, AfterContentInit {
     this.clusterConfig = new ClusterConfigModule();
   }
 
+  deleteByName(clusterName: string) {
+    this.clusterServices.deleteByName(clusterName).subscribe({
+      next: (res: any)=> {
+        let result = <ResultModel> res;
+        if (result.statusCode == ResponseEnums.OK || result.statusCode == ResponseEnums.ok) {
+          let summ = 'delete config ' + clusterName;
+          this.messageService.add({severity: 'success', summary: summ, detail: result.desc.toString()});
+          this.clusterConfigMap.delete(clusterName);
+        } else {
+          let msg = "errorCode: " + result.statusCode + " result: " + result.desc + " desc: " + result.desc;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+          this.clusterConfigMap.delete(clusterName);
+        }
+      }, error: (error: any) => {
+        console.dir(error);
+        let msg = "status: " + error.statusText + "\nerrorName: " + error.name + "\nerrorMsg: " + error.message;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+      }/*, complete: () => {
+        console.log("complete")
+      }*/
+    });
+
+    this.clusterServices.getClusterList().subscribe({
+      next: (value: Object) => {
+        // 处理数据
+      },
+      error: (error: any) => {
+        // 处理错误
+      },
+      complete: () => {
+        // 处理完成
+      }
+    });
+  }
 }
