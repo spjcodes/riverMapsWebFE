@@ -22,6 +22,13 @@ import {FieldsetModule} from "primeng/fieldset";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {ToastModule} from "primeng/toast";
 import {MenuModule} from "primeng/menu";
+import {TreeModule} from "primeng/tree";
+import {SplitterModule} from "primeng/splitter";
+import {TableModule} from "primeng/table";
+import {TabViewModule} from "primeng/tabview";
+import {PanelModule} from "primeng/panel";
+import {InputTextModule} from "primeng/inputtext";
+import {SpeedDialModule} from "primeng/speeddial";
 
 @NgModule({
   declarations: [
@@ -47,6 +54,13 @@ import {MenuModule} from "primeng/menu";
     SplitButtonModule,
     ToastModule,
     MenuModule,
+    TreeModule,
+    SplitterModule,
+    TableModule,
+    TabViewModule,
+    PanelModule,
+    InputTextModule,
+    SpeedDialModule,
 
   ],
   providers: [

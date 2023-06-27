@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./deployment.component.css']
 })
 export class DeploymentComponent implements OnInit {
+  value: string = "test";
 
   constructor() { }
 

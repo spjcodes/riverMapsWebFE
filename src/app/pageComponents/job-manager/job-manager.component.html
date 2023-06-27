@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
   <div class="card" style="width:95%; margin:auto">
     <div class="card-header font-monospace text-center">
       jobManager
@@ -8,7 +9,7 @@
         <thead>
         <tr>
           <th scope="col">jobId</th>
-          <th scope="col">yarnApplicationId</th>
+          <th scope="col"  class="text-nowrap">yarnApplicationId</th>
           <th scope="col">jobName</th>
           <th scope="col">createData</th>
           <th scope="col">updateData</th>
@@ -21,7 +22,7 @@
         <tbody>
         <tr>
           <td>1000001</td>
-          <td>application_1676556081816_0001</td>
+          <td >application_1676556081816_0001</td>
           <td>sqlTestDemo</td>
 
           <td>2023-01-12 14:28:56</td>
@@ -32,13 +33,23 @@
             this is requirement is use riverMaps platform implement a simple stream process app
           </td>
           <td class="text-center" style="white-space: nowrap;">
-            <button style="margin: 0 2px" class="btn btn-success" >detail</button>
-            <button style="margin: 0 2px" class="btn btn-warning">restart</button>
-             <button style="margin: 0 2px" class="btn btn-danger" >&nbsp;&nbsp;&nbsp;kill&nbsp;&nbsp;&nbsp;</button>
+            <button style="margin: 0 2px" class="btn btn-success tips-info" ><i class="pi pi-eye" style="font-weight: bolder"></i></button>
+            <button style="margin: 0 2px" class="btn btn-warning tips-restart" ><i style="font-weight: bolder" class="pi pi-undo"></i></button>
+            <button class="btn btn-danger tips-kill"> <i class="pi pi-stop"></i></button>
+
           </td>
         </tr>
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+<div class="card">
+  <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+    <p-toast></p-toast>
+    <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
+    <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
+    <p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle"></p-speedDial>
+    <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>
   </div>
 </div>
